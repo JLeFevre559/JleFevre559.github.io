@@ -5,12 +5,17 @@
     <body>
             
             <div class="square">
-                <h1>Example Page</h1>
-                <p>Example <strong>Text.</strong></p>
-                <h2>Second <em>section</em></h2>
-                <p>Another line.</p>
-                <a href="https://www.unco.edu">UNC Homepage<img src="https://i.pinimg.com/736x/4f/d2/ed/4fd2ed732361669608231f27822661dd.jpg" alt="Cheem"></a>
-                
+                <h1>These Japanese beef croquettes are so popular there’s a 43-year waitlist</h1>
+                <h2>By Maggie Hiufu Wong, CNN (Summarized by Joel LeFevre)</h2>
+                <div class="titleimage"><a href="https://www.cnn.com/travel/japanese-kobe-beef-croquettes-43-year-wait-list-intl-hnk/index.html"><img src="https://media.cnn.com/api/v1/images/stellar/prod/221104125702-01-japanese-beef-croquettesv2.jpg?c=16x9&q=h_653,w_1160,c_fill/f_webp" alt="Fried Beef Croquette"></a></div>
+                <p>If you order a box of frozen beef croquettes from Asahiya, they will take 43 years to complete your order. They're made of special Kobe beef, which alongside a very high demand, increases their wait time to an alarming 43 years.</p>
+                <h3>An unprofitable business idea</h3>
+                <p>Nitta said that they started selling their croquettes online in 1999, but people were unlikely to buy prime beef online. They were selling their croquettes at a price 66% of that which it cost to get</p>
+                <p>That was only their introductory price, which got people to try their more expensive beef croquettes, which were made from special Kobe beef from people they knew.</p>
+                <h3>Production boosted but popularity grows</h3>
+                <p>The cheap price tag makes these croquettes seem like a much cheaper product than they are, but they're still made from quailty ingredients from a local farmer</p>
+                <p>Nitta even encouraged the farmer to use the manure from the cows to grow the potatoes, and feed the cows the stems of the potatoes to create a cycle.</p>
+                <div class="titleimage"><img src="https://media.cnn.com/api/v1/images/stellar/prod/221104130835-02-japanese-beef-croquettesv2.jpg?c=original" alt="Kobe beef"></div>
             </div>
     </body>
     <style>
@@ -22,13 +27,15 @@
         }
 
         .square{
-            width: 500px;
-            height: 500px;
+            width: fit-content;
+            max-width: 800px;
+            min-width: 0;
+            height: fit-content;
             background-color: aquamarine;
             border-color: black;
             border-width: 10px;
             border-radius: 20px;
-            text-align: center;
+            text-align: left;
             box-shadow: 0 0 20 20 50;
         }
 
@@ -36,6 +43,12 @@
             max-height: 500px;
             max-width: 500px;
             border-radius: 20px;
+            align-self: center;
+        }
+
+        .titleimage{
+            align-items: center;
+            text-align: center;
         }
     </style>
 </html>
