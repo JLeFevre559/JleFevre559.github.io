@@ -4,17 +4,62 @@
     <style>
       body {
         display:flex;
+        height: fit-content;
+        min-width: 0;
         align-items:center;
-        text-align: center;
-        text-justify: center;
+        text-align: left;
         justify-content:center;
-        background-color: blue;
+        background-color: rgb(10,10,10);
         color:white;
+        flex-direction: column;
+      }
+      .body-wrapper{
+        width: 800px;
+        background-color: rgb(40,40,40);
+        border-style: solid;
+        border-color: darkblue;
+        border-radius: 20px;
+        padding: 20px;
+        padding-top: 5px;
+        margin-top: 10px;;
+      }
+      .navbar{
+        text-align: center;
+        width:100vw;
+        border-color: darkblue;
+        border-style: outset;
+        border-width: 5px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 0px;
+        margin-top: 0px;
+        height: 10vh;
+        min-height: 0px;
+        max-height: 80px;
+        background-color: rgb(40,40,40);
+      }
+      .child-links{
+        width: fit-content;
+        padding-left: 20px;
       }
     </style>
   </head>
   <body>
-    <h3>This is Joel LeFevre's home page for BACS 200.</h3>
+    <div class="navbar">
+      <h1>Joel LeFevre BACS 200</h1>
+    </div>
+    <div class="body-wrapper">
+      <h3>Project Links</h3>
+      <div class="child-links">
+        <strong>- </strong><a href="./inspire.html"> Project 2: Inspire.html</a>
+      </div>
+      <h3>In Class Activities links:</h3>
+      <div class="child-links">
+        <strong>- </strong><a href="./In-Class-Activities/1-23-24.html"> 1-23-24</a>
+      </div>
+    </div>
   </body>
   
 </html>
