@@ -27,7 +27,7 @@
       }
       .navbar{
         text-align: center;
-        width:100vw;
+        width:105vw;
         border-color: darkblue;
         border-style: outset;
         border-width: 5px;
@@ -47,11 +47,12 @@
         padding-left: 20px;
       }
       .footer {
+        display:flex;
         border-color: darkblue;
         position: fixed;
         left: 0;
         bottom: 0;
-        width: 100vw;
+        width: 105vw;
         background-color: rgb(40,40,40);
         color: white;
         text-align: right;
@@ -62,6 +63,12 @@
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
         padding: 0px;
+        margin-left:-10px;
+        padding-left: 20px;
+        align-self: center;
+      }
+      a:visited {
+        color: palevioletred;
       }
     </style>
   </head>
@@ -70,17 +77,26 @@
       <h1>Joel LeFevre BACS 200</h1>
     </div>
     <div class="body-wrapper">
-      <h3>Project Links</h3>
-      <div class="child-links">
-        <strong>- </strong><a href="./inspire.html"> Project 2: Inspire.html</a>
-      </div>
-      <h3>In Class Activities links:</h3>
-      <div class="child-links">
-        <strong>- </strong><a href="./In-Class-Activities/1-23-24.html"> 1-23-24</a>
-      </div>
+      
+      <section>
+        <h3>Project Links</h3>
+        <div class="child-links">
+          <strong>- </strong><a href="./inspire.html"> Project 2: Inspire.html</a>
+        </div>
+      </section>
+
+      <section>
+        <h3>In Class Activities links:</h3>
+        <div class="child-links">
+          <strong>- </strong><a href="./In-Class-Activities/1-23-24.html"> 1-23-24</a>
+        </div>
+      </section>
+
     </div>
     <div class="footer">
-      <a href="https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fjlefevre559.github.io%2F">Validator</a>
+      <div>
+        <a href="https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fjlefevre559.github.io%2F">Validator</a>
+      </div>
     </div>
   </body>
   
