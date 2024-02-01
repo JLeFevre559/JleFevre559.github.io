@@ -4,30 +4,36 @@
     <title>Homepage</title>
     <meta charset="UTF-8">
     <style>
-      body {
-        display:flex;
-        height: fit-content;
-        min-width: 0;
-        align-items:center;
-        text-align: left;
-        justify-content:center;
-        background-color: rgb(10,10,10);
-        color:white;
-        flex-direction: column;
-      }
-      .body-wrapper{
-        width: 800px;
-        background-color: rgb(40,40,40);
-        border-style: solid;
-        border-color: darkblue;
-        border-radius: 20px;
-        padding: 20px;
-        padding-top: 5px;
-        margin-top: 10px;;
-      }
+      body{
+            display: flex;
+            flex-direction: column;
+            width: 100vw;
+            height: 100vh;
+            background-color: black;
+            align-items: center;
+            color: white;
+        }
+        .body-wrapper{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding:5px;
+            background-color: rgb(40,40,40);
+            border-color: darkblue;
+            border-style: outset;
+            border-radius: 10px;
+            border-width: 5px;
+            min-height: 50px;
+            height: fit-content;
+            width: 800px;
+            text-align: left;
+        }
+        a:visited{
+            color: palevioletred;
+        }
       .navbar{
         text-align: center;
-        width:105vw;
+        width:99vw;
         border-color: darkblue;
         border-style: outset;
         border-width: 5px;
@@ -35,15 +41,20 @@
         border-bottom-right-radius: 20px;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
+        border-left-width: 0px;
+        border-right-width: 0px;
         padding: 0px;
         margin-top: 0px;
         height: 10vh;
         min-height: 0px;
         max-height: 80px;
         background-color: rgb(40,40,40);
+        left:0;
+        top:0;
       }
       .child-links{
         width: fit-content;
+        padding: 0px;
         padding-left: 20px;
       }
       .footer {
@@ -52,7 +63,7 @@
         position: fixed;
         left: 0;
         bottom: 0;
-        width: 105vw;
+        width: 99vw;
         background-color: rgb(40,40,40);
         color: white;
         text-align: right;
@@ -62,13 +73,12 @@
         border-bottom-right-radius: 10px;
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
+        border-left-width: 0px;
+        border-right-width: 0px;
         padding: 0px;
         margin-left:-10px;
         padding-left: 20px;
         align-self: center;
-      }
-      a:visited {
-        color: palevioletred;
       }
     </style>
   </head>
@@ -81,7 +91,21 @@
       <section>
         <h3>Project Links</h3>
         <div class="child-links">
-          <strong>- </strong><a href="./inspire.html"> Project 2: Inspire.html</a>
+          <section>
+            <h4>Project 2:</h4>
+            <div class="child-links">
+              <strong>- </strong><a href="./inspire.html">Inspire.html</a>
+            </div>
+          </section>
+          <section>
+            <h4>Project 3:</h4>
+            <div class="child-links">
+              <strong>- </strong><a href="./template.html">Template.html</a><br>
+              <strong>- </strong><a href="./amuse.html">Amuse.html</a><br>
+              <strong>- </strong><a href="./profile.html">Profile.html</a><br>
+            </div>
+          </section>
+
         </div>
       </section>
 
