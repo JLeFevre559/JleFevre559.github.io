@@ -20,6 +20,13 @@
     font-size: 36px;
     cursor: pointer;
   }
+  /* Only interior borders */
+  #tic-tac-toe-board tr:not(:last-child) td {
+    border-bottom: none;
+  }
+  #tic-tac-toe-board td:not(:last-child) {
+    border-right: none;
+  }
 </style>
 </head>
 <body>
