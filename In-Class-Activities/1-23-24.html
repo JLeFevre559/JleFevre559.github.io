@@ -1,9 +1,41 @@
-<html>
+<html lang="en">
     <head>
-            <title>Example Page</title>
+        <meta charset="UTF-8">
+        <title>Example Page</title>
+        <style>
+            body{
+                display:flex;
+                align-items: center;
+                justify-content: center;
+                background-color: darkslategrey;
+            }
+    
+            .square{
+                width: fit-content;
+                max-width: 800px;
+                min-width: 0;
+                height: fit-content;
+                background-color: aquamarine;
+                border-color: black;
+                border-width: 10px;
+                border-radius: 20px;
+                text-align: left;
+            }
+    
+            img{
+                max-height: 500px;
+                max-width: 500px;
+                border-radius: 20px;
+                align-self: center;
+            }
+    
+            .titleimage{
+                align-items: center;
+                text-align: center;
+            }
+        </style>
     </head>
     <body>
-            
             <div class="square">
                 <h1>These Japanese beef croquettes are so popular there’s a 43-year waitlist</h1>
                 <h2>By Maggie Hiufu Wong, CNN (Summarized by Joel LeFevre)</h2>
@@ -18,37 +50,4 @@
                 <div class="titleimage"><img src="https://media.cnn.com/api/v1/images/stellar/prod/221104130835-02-japanese-beef-croquettesv2.jpg?c=original" alt="Kobe beef"></div>
             </div>
     </body>
-    <style>
-        body{
-            display:flex;
-            align-items: center;
-            justify-content: center;
-            background-color: darkslategrey;
-        }
-
-        .square{
-            width: fit-content;
-            max-width: 800px;
-            min-width: 0;
-            height: fit-content;
-            background-color: aquamarine;
-            border-color: black;
-            border-width: 10px;
-            border-radius: 20px;
-            text-align: left;
-            box-shadow: 0 0 20 20 50;
-        }
-
-        img{
-            max-height: 500px;
-            max-width: 500px;
-            border-radius: 20px;
-            align-self: center;
-        }
-
-        .titleimage{
-            align-items: center;
-            text-align: center;
-        }
-    </style>
 </html>
