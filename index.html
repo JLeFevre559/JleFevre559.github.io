@@ -4,7 +4,7 @@
     <title>Homepage</title>
     <meta charset="UTF-8">
     <style>
-      body{
+        body{
             display: flex;
             flex-direction: column;
             background-color: black;
@@ -15,7 +15,6 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            padding:5px;
             background-color: rgb(40,40,40);
             border-color: darkblue;
             border-style: outset;
@@ -29,90 +28,111 @@
         a:visited{
             color: palevioletred;
         }
-      .navbar{
-        text-align: center;
-        width:100vw;
-        border-color: darkblue;
-        border-style: outset;
-        border-width: 5px;
-        border-bottom-left-radius: 20px;
-        border-bottom-right-radius: 20px;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        border-left-width: 0px;
-        border-right-width: 0px;
-        padding: 0px;
-        margin-top: 0px;
-        height: 10vh;
-        min-height: 0px;
-        max-height: 80px;
-        background-color: rgb(40,40,40);
-        left:0;
-        top:0;
-      }
-      .child-links{
-        width: fit-content;
-        padding: 0px;
-        padding-left: 20px;
-      }
-      .footer {
-        display:flex;
-        border-color: darkblue;
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100vw;
-        background-color: rgb(40,40,40);
-        color: white;
-        text-align: right;
-        border-style: outset;
-        border-width: 5px;
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        border-left-width: 0px;
-        border-right-width: 0px;
-        padding: 0px;
-        margin-left:-10px;
-        padding-left: 20px;
-        align-self: center;
-      }
+        .navbar{
+          display: flex;
+          text-align: center;
+          width:100vw;
+          border-color: darkblue;
+          border-style: outset;
+          border-width: 5px;
+          border-bottom-left-radius: 20px;
+          border-bottom-right-radius: 20px;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+          border-left-width: 0px;
+          border-right-width: 0px;
+          padding: 0px;
+          margin-top: 0px;
+          height: 10vh;
+          min-height: 80px;
+          max-height: 80px;
+          background-color: rgb(40,40,40);
+          left:0;
+          top:0;
+        }
+        .footer {
+          display:flex;
+          border-color: darkblue;
+          position: fixed;
+          left: 0;
+          bottom: 0;
+          width: 100vw;
+          background-color: rgb(40,40,40);
+          color: white;
+          text-align: right;
+          border-style: outset;
+          border-width: 5px;
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+          border-top-left-radius: 20px;
+          border-top-right-radius: 20px;
+          border-left-width: 0px;
+          border-right-width: 0px;
+          padding: 0px;
+          margin-left:-10px;
+          padding-left: 20px;
+          align-self: center;
+        }
+        section{
+            background-color: rgb(163, 163, 163);
+            color:black;
+            border-color: black;
+            border-style: inset;
+            border-width: 5px;
+            border-radius: 10px;
+            height:fit-content;
+            width: 90%;
+            padding:5px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            align-self: center;
+        }
+        .logodiv{
+          width: 38vw;
+          align-self: left;
+          justify-self: left;
+          display: flex;
+          padding: 10px;
+        }
     </style>
   </head>
   <body>
     <div class="navbar">
+      <div class="logodiv">
+        <a href="https://www.unco.edu/"><img class ="unc-logo" src="./static/images/_marketing-communications_assets_logos_08_unc_bear_horiz_c.png" alt="UNC Logo" height="60"></a>
+      </div>
       <h1>Joel LeFevre BACS 200</h1>
     </div>
     <div class="body-wrapper">
       
       <section>
         <h3>Project Links</h3>
-        <div class="child-links">
-          <section>
+        <ol>
+          <li>
             <h4>Project 2:</h4>
-            <div class="child-links">
-              <strong>- </strong><a href="./inspire.html">Inspire.html</a>
-            </div>
-          </section>
-          <section>
+            <ul>
+              <li>
+                <a href="./inspire.html">Inspire.html</a>
+              </li>
+            </ul>
+          </li>
+          <li>
             <h4>Project 3:</h4>
-            <div class="child-links">
-              <strong>- </strong><a href="./template.html">Template.html</a><br>
-              <strong>- </strong><a href="./amuse.html">Amuse.html</a><br>
-              <strong>- </strong><a href="./profile.html">Profile.html</a><br>
-            </div>
-          </section>
+            <ul class="child-links">
+              <li><a href="./template.html">Template.html</a><br></li>
+              <li><a href="./amuse.html">Amuse.html</a><br></li>
+              <li><a href="./profile.html">Profile.html</a><br></li>
+            </ul>
+          </li>
 
-        </div>
+        </ol>
       </section>
-
       <section>
-        <h3>In Class Activities links:</h3>
-        <div class="child-links">
-          <strong>- </strong><a href="./In-Class-Activities/1-23-24.html"> 1-23-24</a>
-          <strong>- </strong><a href="./In-Class-Activities/2-6-24-Movies.html"> 2-6-24 Movies</a>
-        </div>
+      <h3>In Class Activities links:</h3>
+        <ul>
+          <li><a href="./In-Class-Activities/1-23-24.html"> 1-23-24</a></li>
+          <li><a href="./In-Class-Activities/2-6-24-Movies.html"> 2-6-24 Movies</a></li>
+        </ul>
       </section>
 
     </div>

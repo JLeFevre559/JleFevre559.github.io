@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Test</title>
+        <style>
+            body{
+                display: flex;
+                width: 100vw;
+                height: 100vh;
+                background-color: black;
+                justify-content: center;
+                color: white;
+            }
+            section{
+                background-color: rgb(163, 163, 163);
+                color:black;
+                border-color: black;
+                border-style: inset;
+                border-width: 5px;
+                border-radius: 10px;
+                height:fit-content;
+                width: 90%;
+                padding:5px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
+            .body-wrapper{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding:5px;
+                background-color: rgb(40,40,40);
+                border-color: darkblue;
+                border-style: outset;
+                border-radius: 10px;
+                border-width: 5px;
+                min-height: 50px;
+                height: fit-content;
+                width: 800px;
+            }
+            a:visited{
+                color: palevioletred;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="body-wrapper">
+            <h1>HTML Validation</h1>
+            <section>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Page Name</th>
+                            <th>URL</th>
+                            <th>Validation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Template</th>
+                            <td><a href="https://bacs200steven-sanchez.github.io/template.html">https://bacs200steven-sanchez.github.io/template.html</a></td>
+                            <td><a href="https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fbacs200steven-sanchez.github.io%2Ftemplate.html">VALIDATE</a></td>
+                        </tr>
+                        <tr>
+                            <th>Amuse</th>
+                            <td><a href="amuse.html">https://bacs200steven-sanchez.github.io/amuse.html</a></td>
+                            <td><a href="https://validator.w3.org/nu/?showsource=yes&doc=https%3A%2F%2Fbacs200steven-sanchez.github.io%2Famuse.html">VALIDATE</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>    
+    </body>
+</html>
