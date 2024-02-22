@@ -31,6 +31,7 @@ section{
     min-height: 50px;
     height: fit-content;
     width: 800px;
+    text-align: center;
 }
 a:visited{
     color: palevioletred;
@@ -101,4 +102,21 @@ a:visited{
 .button:active{
     animation-duration: 0.7s;
     background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(0,100,255,1) 0%, rgba(0,0,150,1) 90%);
+}
+table, td, th{
+    border:1px solid black;
+    min-width: fit-content;
+    text-align: center;
+}
+td{
+    min-width: fit-content;
+    vertical-align: middle;
+    padding-top: 5px;
+}
+th{
+    background-color: darkblue;
+    color:white;
+}
+thead{
+    font-size: 1.1rem;
 }
