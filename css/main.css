@@ -1,9 +1,30 @@
+:root{
+    --main-color: rgb(40,40,40);
+    --background-color: black;
+    --border-color: black;
+    --border-radius: 0%;
+}
+@font-face{
+    font-family: Silkscreen;
+    font-weight: normal;
+    src: url(fonts/Silkscreen-Regular.ttf); 
+}
+@font-face {
+    font-family: Silkscreen;
+    font-weight: bold;
+    src: url(fonts/Silkscreen-Bold.ttf);
+}
+@font-face {
+    font-family: Pixelify_Sans;
+    src: url(fonts/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf);
+}
 body{
     display: flex;
     flex-direction: column;
     background-color: black;
     align-items: center;
     color: white;
+    font-family: Silkscreen;
 }
 section{
     background-color: rgb(163, 163, 163);
@@ -11,7 +32,7 @@ section{
     border-color: black;
     border-style: inset;
     border-width: 5px;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     height:fit-content;
     width: 90%;
     padding:5px;
@@ -26,11 +47,13 @@ section{
     background-color: rgb(40,40,40);
     border-color: darkblue;
     border-style: outset;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     border-width: 5px;
     min-height: 50px;
     height: fit-content;
-    width: 800px;
+    min-width: 800px;
+    width: fit-content;
+    max-width: 1200px;
     text-align: center;
 }
 .body-wrapper[id~="indexBody"]{
@@ -46,7 +69,6 @@ section{
     border-right-width: 0px;
     border-left-width: 0px;
     border-top-width: 0px;
-    padding: 0px;
     margin-top: -8px;
     margin-bottom: 5px;
     height: 10vh;
@@ -89,14 +111,16 @@ section{
 }
 .unc-logo{
     background-color: rgb(163, 163, 163);
-    border-radius: 12px;
+    border: outset black;
+    border-width: 4px;
+    border-radius: var(--border-radius);
     padding: 3px;
 }
 .home-button{
     background: rgb(2,0,36);
     background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(0,0,255,1) 0%, rgba(0,0,100,1) 90%);
     border: black outset;
-    border-radius: 1000px;
+    border-radius: var(--border-radius);
     border-left-width: 2px;
     border-top-width: 2px;
     display: flex;
@@ -130,7 +154,7 @@ table{
     margin: auto;
 }
 table, td, th{
-    border:1px solid black;
+    border:4px solid black;
     min-width: fit-content;
     text-align: center;
 }
@@ -138,6 +162,7 @@ td{
     min-width: fit-content;
     vertical-align: middle;
     padding-top: 5px;
+    font-family: Pixelify_Sans;
 }
 th{
     background-color: darkblue;
@@ -151,4 +176,7 @@ p{
 }
 td > img{
     height: 200px;
+}
+p, li{
+    font-family: Pixelify_Sans;
 }
