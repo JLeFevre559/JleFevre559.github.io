@@ -3,6 +3,7 @@
     --background-color: black;
     --border-color: black;
     --border-radius: 0%;
+    --text-heading-color: rgb(50,200,255)
 }
 @font-face{
     font-family: Silkscreen;
@@ -166,13 +167,21 @@ td{
 }
 th{
     background-color: darkblue;
-    color:white;
+    color:var(--text-heading-color);
 }
 thead{
     font-size: 1.1rem;
 }
 p{
     text-align: left;
+}
+img{
+    max-height: 200px;
+}
+h1{
+    color: var(--text-heading-color);
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
 }
 td > img{
     height: 200px;
