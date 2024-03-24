@@ -22,6 +22,7 @@
                     <th>Attained Mastery</th>
                     <th>Mastery Still Available</th>
                     <th>Percentage Completion</th>
+                    <th>Percentage of Available</th>
                     </tr>
                 </thead>
             <tbody id="resultBody">
@@ -29,83 +30,131 @@
             </table>
         </section>
     </div>
-<script>
-function compareData() {
-    var inputData = document.getElementById("inputText").value;
-  var inputDict = {}; // Dictionary to store input data
-  var data = inputData.split(/\s+/); // Split input data by whitespace
-  var count = null;
-  var key = null;
-  
-  // Parse input data and create dictionary
-  for (var i = 0; i < data.length; i++) {
-    if (data[i].match(/\d/)) {
-      // If the item contains a number, it's the count
-      count = parseInt(data[i].replace(/,/g, ''));
-    } else {
-      // Otherwise, it's part of the key (category)
-      if (key) {
-        key += " " + data[i]; // Append to current key
-      } else {
-        key = data[i];
+    <script>
+      var total_mastery_sum = 0;
+      var input_mastery_sum = 0;
+      var total_completion = 0;
+      
+      function compareData() {
+          var inputData = document.getElementById("inputText").value;
+        var inputDict = {}; // Dictionary to store input data
+        var data = inputData.split(/\s+/); // Split input data by whitespace
+        var count = null;
+        var key = null;
+        total_mastery_sum = 0;
+        input_mastery_sum = 0;
+        total_completion = 0;
+        var resultArray = [];
+        
+        // Parse input data and create dictionary
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].match(/\d/)) {
+            // If the item contains a number, it's the count
+            count = parseInt(data[i].replace(/,/g, ''));
+          } else {
+            // Otherwise, it's part of the key (category)
+            if (key) {
+              key += " " + data[i]; // Append to current key
+            } else {
+              key = data[i];
+            }
+            
+            // Check if next item is a number (indicating the start of a new key-value pair)
+            if (i + 1 < data.length && data[i + 1].match(/\d/)) {
+              // Add the key-value pair to the dictionary
+              inputDict[key.toLowerCase()] = count;
+              // Reset key and count for the next key-value pair
+              key = null;
+              count = null;
+            }
+          }
+        }
+        
+        // If there's still a non-null key and count, add them to the dictionary
+        if (key && count) {
+          inputDict[key.toLowerCase()] = count;
+        }
+      
+        // Output the input dictionary to console
+        console.log("Input Dictionary:", inputDict);
+      
+        // Fetch CSV data
+        fetch('total_mastery_data.csv')
+          .then(response => response.text())
+          .then(csvData => {
+            var rows = csvData.split('\n');
+            var resultBody = document.getElementById("resultBody");
+            resultBody.innerHTML = ""; // Clear previous results
+            
+            // Parse CSV data and create table rows
+            rows.forEach(function(row, index) {
+              if (index === 0) return; // Skip header row
+              var csvRow = row.trim().split(',');
+              if (csvRow.length >= 3) {
+                var category = csvRow[0].toLowerCase();
+                var csvCount = parseInt(csvRow[1].replace(/,/g, ''));
+                var csvMastery = parseInt(csvRow[2].replace(/,/g, ''));
+                var inputMastery = inputDict[category] || "Not found";
+                var csvInputDiff = csvMastery - (typeof inputMastery === "number" ? inputMastery : 0);
+                var percentage = csvMastery > 0 ? (100-((csvInputDiff / csvMastery)) * 100).toFixed(2) : "N/A";
+      
+                // Calculate total mastery sum
+                total_mastery_sum += csvMastery;
+                // Calculate input mastery sum
+                input_mastery_sum += (typeof inputMastery === "number" ? inputMastery : 0);
+      
+                // Log each call to the input dictionary
+                console.log("Category:", category, "Value:", inputMastery);
+                // alter this  to add the rows to the result array instead of the table
+                resultArray.push([csvRow[0], csvMastery, inputMastery, csvInputDiff, percentage, 0]);
+              }
+            });
+            
+            addRowsToTable(resultArray);
+            
+          });
       }
       
-      // Check if next item is a number (indicating the start of a new key-value pair)
-      if (i + 1 < data.length && data[i + 1].match(/\d/)) {
-        // Add the key-value pair to the dictionary
-        inputDict[key.toLowerCase()] = count;
-        // Reset key and count for the next key-value pair
-        key = null;
-        count = null;
-      }
-    }
-  }
-  
-  // If there's still a non-null key and count, add them to the dictionary
-  if (key && count) {
-    inputDict[key.toLowerCase()] = count;
-  }
-
-  // Output the input dictionary to console
-  console.log("Input Dictionary:", inputDict);
-
-  // Fetch CSV data
-  fetch('total_mastery_data.csv')
-    .then(response => response.text())
-    .then(csvData => {
-      var rows = csvData.split('\n');
-      var resultBody = document.getElementById("resultBody");
-      resultBody.innerHTML = ""; // Clear previous results
+      //function that takes an input 2d array and adds the rows to the table, and the final row will be bolded
+      function addRowsToTable(data) {
+        var resultBody = document.getElementById("resultBody");
+        resultBody.innerHTML = ""; // Clear previous results
+        
+        data.forEach(function(row, index) {
+          var category = row[0].toLowerCase();
+          var csvMastery = row[1];
+          var inputMastery = row[2];
+          var csvInputDiff = row[3];
+          var percentage = row[4];
+          var percentage_of_available = input_mastery_sum > 0 ? ((csvInputDiff / input_mastery_sum) * 100).toFixed(2) : "N/A";
       
-      // Parse CSV data and create table rows
-      rows.forEach(function(row, index) {
-        if (index === 0) return; // Skip header row
-        var csvRow = row.trim().split(',');
-        if (csvRow.length >= 3) {
-          var category = csvRow[0].toLowerCase();
-          var csvCount = parseInt(csvRow[1].replace(/,/g, ''));
-          var csvMastery = parseInt(csvRow[2].replace(/,/g, ''));
-          var inputMastery = inputDict[category] || "Not found";
-          var csvInputDiff = csvMastery - (typeof inputMastery === "number" ? inputMastery : 0);
-          var percentage = csvMastery > 0 ? (100-((csvInputDiff / csvMastery)) * 100).toFixed(2) : "N/A";
-
-          // Log each call to the input dictionary
-          console.log("Category:", category, "Value:", inputMastery);
-
           var rowHtml = "<tr>";
-          rowHtml += "<th>" + csvRow[0] + "</th>";
+          rowHtml += "<th>" + row[0] + "</th>";
           rowHtml += "<td>" + csvMastery.toLocaleString() + "</td>";
           rowHtml += "<td>" + (typeof inputMastery === "number" ? inputMastery.toLocaleString() : inputMastery) + "</td>";
           rowHtml += "<td>" + csvInputDiff.toLocaleString() + "</td>";
           rowHtml += "<td>" + percentage + "%</td>";
+          rowHtml += "<td>" + percentage_of_available + "%</td>";
           rowHtml += "</tr>";
           
           resultBody.innerHTML += rowHtml;
-        }
-      });
-    });
-}
-</script>
+        });
+        // Calculate total completion
+        total_completion = (100-((total_mastery_sum - input_mastery_sum) / total_mastery_sum) * 100).toFixed(2);
+        // Add Total row to the table
+        var totalRow = "<tr>";
+        totalRow += "<th><strong>Total</strong></th>";
+        totalRow += "<th><strong>" + total_mastery_sum.toLocaleString() + "</strong></th>";
+        totalRow += "<th><strong>" + input_mastery_sum.toLocaleString() + "</strong></th>";
+        totalRow += "<th><strong>" + (total_mastery_sum - input_mastery_sum).toLocaleString() + "</strong></th>";
+        totalRow += "<th><strong>" + total_completion + "</strong></th>";
+        totalRow += "<th><strong>100%</strong></th>";
+        totalRow += "</tr>";
+      
+        resultBody.innerHTML += totalRow;
+      }
+      
+      </script>
 
 </body>
 </html>
