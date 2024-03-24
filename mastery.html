@@ -11,7 +11,7 @@
         <section id="Mastery Compare">
             <h2>Mastery Comparison</h2>
 
-            <textarea id="inputText" rows="15" cols="150" placeholder="Enter Mastery Data Here..."></textarea><br>
+            <textarea id="inputText" rows="10" cols="100" placeholder="Enter Mastery Data Here..."></textarea><br>
             <button onclick="compareData()">Compare</button>
 
             <table id="resultTable">
@@ -93,7 +93,7 @@ function compareData() {
           console.log("Category:", category, "Value:", inputMastery);
 
           var rowHtml = "<tr>";
-          rowHtml += "<td>" + csvRow[0] + "</td>";
+          rowHtml += "<th>" + csvRow[0] + "</th>";
           rowHtml += "<td>" + csvMastery.toLocaleString() + "</td>";
           rowHtml += "<td>" + (typeof inputMastery === "number" ? inputMastery.toLocaleString() : inputMastery) + "</td>";
           rowHtml += "<td>" + csvInputDiff.toLocaleString() + "</td>";
