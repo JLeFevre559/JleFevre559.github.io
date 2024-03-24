@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mastery Checker</title>
+        <link type="text/css" href="./css/main.css" rel="stylesheet">
+    </head>
+<body>
+
+<h2>Data Comparison</h2>
+
+<textarea id="inputText" rows="10" cols="50"></textarea><br>
+<button onclick="compareData()">Compare</button>
+
+<table id="resultTable" border="1">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>CSV Data</th>
+      <th>Input Data</th>
+      <th>CSV Data - Input Data</th>
+      <th>Percentage Completion</th>
+    </tr>
+  </thead>
+  <tbody id="resultBody">
+  </tbody>
+</table>
+
+<script>
+function compareData() {
+    var inputData = document.getElementById("inputText").value;
+  var inputDict = {}; // Dictionary to store input data
+  var data = inputData.split(/\s+/); // Split input data by whitespace
+  var count = null;
+  var key = null;
+  
+  // Parse input data and create dictionary
+  for (var i = 0; i < data.length; i++) {
+    if (data[i].match(/\d/)) {
+      // If the item contains a number, it's the count
+      count = parseInt(data[i].replace(/,/g, ''));
+    } else {
+      // Otherwise, it's part of the key (category)
+      if (key) {
+        key += " " + data[i]; // Append to current key
+      } else {
+        key = data[i];
+      }
+      
+      // Check if next item is a number (indicating the start of a new key-value pair)
+      if (i + 1 < data.length && data[i + 1].match(/\d/)) {
+        // Add the key-value pair to the dictionary
+        inputDict[key.toLowerCase()] = count;
+        // Reset key and count for the next key-value pair
+        key = null;
+        count = null;
+      }
+    }
+  }
+  
+  // If there's still a non-null key and count, add them to the dictionary
+  if (key && count) {
+    inputDict[key.toLowerCase()] = count;
+  }
+
+  // Output the input dictionary to console
+  console.log("Input Dictionary:", inputDict);
+
+  // Fetch CSV data
+  fetch('total_mastery_data.csv')
+    .then(response => response.text())
+    .then(csvData => {
+      var rows = csvData.split('\n');
+      var resultBody = document.getElementById("resultBody");
+      resultBody.innerHTML = ""; // Clear previous results
+      
+      // Parse CSV data and create table rows
+      rows.forEach(function(row, index) {
+        if (index === 0) return; // Skip header row
+        var csvRow = row.trim().split(',');
+        if (csvRow.length >= 3) {
+          var category = csvRow[0].toLowerCase();
+          var csvCount = parseInt(csvRow[1].replace(/,/g, ''));
+          var csvMastery = parseInt(csvRow[2].replace(/,/g, ''));
+          var inputMastery = inputDict[category] || "Not found";
+          var csvInputDiff = csvMastery - (typeof inputMastery === "number" ? inputMastery : 0);
+          var percentage = csvMastery > 0 ? (100-((csvInputDiff / csvMastery)) * 100).toFixed(2) : "N/A";
+
+          // Log each call to the input dictionary
+          console.log("Category:", category, "Value:", inputMastery);
+
+          var rowHtml = "<tr>";
+          rowHtml += "<td>" + csvRow[0] + "</td>";
+          rowHtml += "<td>" + csvMastery.toLocaleString() + "</td>";
+          rowHtml += "<td>" + (typeof inputMastery === "number" ? inputMastery.toLocaleString() : inputMastery) + "</td>";
+          rowHtml += "<td>" + csvInputDiff.toLocaleString() + "</td>";
+          rowHtml += "<td>" + percentage + "%</td>";
+          rowHtml += "</tr>";
+          
+          resultBody.innerHTML += rowHtml;
+        }
+      });
+    });
+}
+</script>
+
+</body>
+</html>
