@@ -7,26 +7,28 @@
         <link type="text/css" href="./css/main.css" rel="stylesheet">
     </head>
 <body>
+    <div class="body-wrapper">
+        <section id="Mastery Compare">
+            <h2>Mastery Comparison</h2>
 
-<h2>Data Comparison</h2>
+            <textarea id="inputText" rows="15" cols="150" placeholder="Enter Mastery Data Here..."></textarea><br>
+            <button onclick="compareData()">Compare</button>
 
-<textarea id="inputText" rows="10" cols="50"></textarea><br>
-<button onclick="compareData()">Compare</button>
-
-<table id="resultTable" border="1">
-  <thead>
-    <tr>
-      <th>Category</th>
-      <th>CSV Data</th>
-      <th>Input Data</th>
-      <th>CSV Data - Input Data</th>
-      <th>Percentage Completion</th>
-    </tr>
-  </thead>
-  <tbody id="resultBody">
-  </tbody>
-</table>
-
+            <table id="resultTable">
+                <thead>
+                    <tr>
+                    <th>Category</th>
+                    <th>Available Mastery</th>
+                    <th>Attained Mastery</th>
+                    <th>Mastery Still Available</th>
+                    <th>Percentage Completion</th>
+                    </tr>
+                </thead>
+            <tbody id="resultBody">
+            </tbody>
+            </table>
+        </section>
+    </div>
 <script>
 function compareData() {
     var inputData = document.getElementById("inputText").value;
