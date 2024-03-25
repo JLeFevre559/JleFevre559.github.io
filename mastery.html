@@ -166,7 +166,7 @@
           var inputMastery = row[2];
           var csvInputDiff = row[3];
           var percentage = row[4];
-          var percentage_of_available = input_mastery_sum > 0 ? ((csvInputDiff / input_mastery_sum) * 100).toFixed(2) : "N/A";
+          var percentage_of_available = input_mastery_sum > 0 ? ((csvInputDiff / (total_mastery_sum-input_mastery_sum)) * 100).toFixed(2) : "N/A";
       
           var rowHtml = "<tr>";
           rowHtml += "<th>" + row[0] + "</th>";
