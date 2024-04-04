@@ -214,3 +214,19 @@ input[type="submit" i]:active{
 form > ul{
     text-align: left;
 }
+.header-block{
+    display: block;
+    justify-content: space-between;
+    margin: auto;
+}
+.header-block > h2{
+    display: inline;
+    align-self: center;
+    margin-left: 20%;
+}
+.header-block > a{
+    float: right;
+}
+section[id="contact-info"] > img{
+    border-radius: 50%;
+}
