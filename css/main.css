@@ -189,3 +189,28 @@ td > img{
 p, li{
     font-family: Pixelify_Sans;
 }
+input[type="submit" i]{
+    background: rgb(2,0,36);
+    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(0,0,255,1) 0%, rgba(0,0,100,1) 90%);
+    border: black outset;
+    border-radius: var(--border-radius);
+    border-left-width: 2px;
+    border-top-width: 2px;
+    display: inline;
+    max-height: 60px;
+    height: fit-content;
+    width: fit-content;
+    color:white;
+    font-weight: bold;
+}
+input[type="submit" i]:hover{
+    animation-duration: 0.7s;
+    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(0,100,255,1) 0%, rgba(0,0,150,1) 90%);
+}
+input[type="submit" i]:active{
+    animation-duration: 0.7s;
+    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(0,100,255,1) 0%, rgba(0,0,150,1) 90%);
+}
+form > ul{
+    text-align: left;
+}

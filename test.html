@@ -11,7 +11,7 @@
               <a href="https://www.unco.edu/"><img class ="unc-logo" src="./images/bear-logo.png" alt="UNC Logo" height="60"></a>
             </div>
             <h1>Joel LeFevre BACS 200</h1>
-            <div class="home-button-container">  
+            <div class="button home-button-container">  
               <a href="./index.html" class="home-button button">Home</a>
             </div>
           </div>
@@ -75,6 +75,29 @@
                         </tr>
                     </tbody>
                 </table>
+            </section>
+            <section id="form">
+                <h2>Validation Forms:</h2>
+                <form method="GET" action="https://validator.w3.org/check">
+                    <label for="url">URL To Validate:</label>
+                    <input type="text" name="uri" size="50" id="url">
+                    <input type="submit" value="Validate">
+                    <ul>
+                        <li>
+                            <input type="radio" id="template-URL" name="urls" value="https://jlefevre559.github.io/template.html">
+                            <label for="template-URL">Template</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="amuse-URL" name="urls" value="https://jlefevre559.github.io/amuse.html">
+                            <label for="amuse-URL">Amuse</label>
+                        </li>
+                        <li>
+                            <input type="radio" id="test-URL" name="urls" value="https://jlefevre559.github.io/test.html">
+                            <label for="test-URL">Test</label>
+                        </li>
+                        <input type="submit" value="Validate">
+                    </ul>
+                </form>
             </section>
         </div>    
     </body>
