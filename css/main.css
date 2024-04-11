@@ -19,6 +19,9 @@
     font-family: Pixelify_Sans;
     src: url(fonts/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf);
 }
+*{
+    max-width: 100%;
+}
 body{
     display: flex;
     flex-direction: column;
@@ -52,9 +55,8 @@ section{
     border-width: 5px;
     min-height: 50px;
     height: fit-content;
-    min-width: 800px;
+    width: 800px;
     width: fit-content;
-    max-width: 1200px;
     text-align: center;
 }
 .body-wrapper[id~="indexBody"]{
@@ -156,14 +158,18 @@ table{
 }
 table, td, th{
     border:4px solid black;
-    min-width: fit-content;
+    width: fit-content;
     text-align: center;
+    font-size: 2vw;
 }
 td{
-    min-width: fit-content;
+    width: fit-content;
     vertical-align: middle;
     padding-top: 5px;
     font-family: Pixelify_Sans;
+}
+td > ul{
+    padding-left: 3.5vw;
 }
 th{
     background-color: darkblue;
