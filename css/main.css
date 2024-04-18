@@ -248,4 +248,11 @@ section[id="contact-info"] > img{
     .home-button-container > a{
         font-size: 2vw;
     }
+    .td-content{
+        display: flex;
+        overflow: break-word;
+        flex-direction: column;
+        flex-wrap: wrap;
+        max-width: 33vw;
+    }
   }
