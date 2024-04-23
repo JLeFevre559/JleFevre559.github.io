@@ -250,7 +250,7 @@ section[id="contact-info"] > img{
     }
     .td-content{
         display: flex;
-        overflow: break-word;
+        overflow-wrap: break-word;
         flex-direction: column;
         flex-wrap: wrap;
         max-width: 33vw;
