@@ -11,6 +11,9 @@
 body{
     background-color: var(--UNC-Blue);
 }
+body, html{
+    background-color: var(--UNC-Blue);
+}
 @font-face {
     font-family: Arvo-Regular;
     src: url(./fonts/Pixelify_Sans/Arvo-Regular.ttf);
