@@ -18,7 +18,7 @@
               <h2 style="display:inline;">Warframe Mastery Comparison</h2>
               <!--Add a button here that displays/hides the instructions-->
               <button onclick="document.querySelector('.instructions').style.display = document.querySelector('.instructions').style.display === 'none' ? 'block' : 'none'">?</button>
-              <small>Update 35.0 (2023-12-13)</small>
+              <small>Update 35.0 (2023-12-13) Protea Prime</small>
             </div>
             <section class="instructions" id="instructions" style="display: none; margin:auto; text-align: left;">
               <h3>How to use:</h3>
@@ -135,7 +135,7 @@
                 var csvCount = parseInt(csvRow[1].replace(/,/g, ''));
                 var csvMastery = parseInt(csvRow[2].replace(/,/g, ''));
                 var inputMastery = inputDict[category] || "Not found";
-                var csvInputDiff = csvMastery - (typeof inputMastery === "number" ? inputMastery : 0);
+                var csvInputDiff = (csvMastery - (typeof inputMastery === "number" ? inputMastery : 0)) >= 0 ? inputMastery : 0;
                 var percentage = csvMastery > 0 ? (100-((csvInputDiff / csvMastery)) * 100).toFixed(2) : "N/A";
       
                 // Calculate total mastery sum
