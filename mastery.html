@@ -135,7 +135,8 @@
                 var csvCount = parseInt(csvRow[1].replace(/,/g, ''));
                 var csvMastery = parseInt(csvRow[2].replace(/,/g, ''));
                 var inputMastery = inputDict[category] || "Not found";
-                var csvInputDiff = (csvMastery - (typeof inputMastery === "number" ? inputMastery : 0)) >= 0 ? inputMastery : 0;
+                var csvInputDiff = csvMastery - (typeof inputMastery === "number" ? inputMastery : 0);
+                if (csvInputDiff < 0) csvInputDiff = 0;
                 var percentage = csvMastery > 0 ? (100-((csvInputDiff / csvMastery)) * 100).toFixed(2) : "N/A";
       
                 // Calculate total mastery sum
