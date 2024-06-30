@@ -142,7 +142,7 @@
                 // Calculate total mastery sum
                 total_mastery_sum += csvMastery;
                 // Calculate input mastery sum
-                input_mastery_sum += (typeof inputMastery === "number" ? inputMastery : 0);
+                input_mastery_sum += ((typeof inputMastery === "number" && inputMastery <= csvMastery) ? inputMastery : 0);
       
                 // Log each call to the input dictionary
                 console.log("Category:", category, "Value:", inputMastery);
