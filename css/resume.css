@@ -43,8 +43,27 @@ body{
 }
 #myCarousel{
     width:80%;
+    align-items: center;
+    justify-content: center;
+    padding: 4em;
 }
+
 .carousel-inner{
     height:50vh;
     
+}
+.carousel-caption{
+    position:unset;
+    padding:auto;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display:flex;
+    flex-direction: column;
+}
+.carousel-caption h1{
+    font-size: 2em;
+    color: var(--text-heading-color);
+    position: relative;
+    top:-2em;
 }
