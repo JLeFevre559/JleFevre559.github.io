@@ -1,0 +1,23 @@
+.lnXdpd {
+    object-fit: contain;
+    object-position: center bottom;
+    width: 100vw;
+    height: 100vh;
+}
+:root{
+    --UNC-Blue: #013C65;
+    --UNC-Gold: #FFB71B;
+}
+body{
+    background-color: var(--UNC-Blue);
+}
+body, html{
+    background-color: var(--UNC-Blue);
+}
+@font-face {
+    font-family: Arvo-Regular;
+    src: url(./fonts/Pixelify_Sans/Arvo-Regular.ttf);
+}
+*{
+    font-family: Arvo-Regular;
+}

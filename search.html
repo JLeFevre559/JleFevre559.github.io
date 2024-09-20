@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Search</title>
+        <link href="./css/main.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="logodiv">
+              <a href="https://www.unco.edu/"><img class ="unc-logo" src="./images/bear-logo.png" alt="UNC Logo" height="60"></a>
+            </div>
+            <h1>Joel LeFevre BACS 200</h1>
+            <div class="home-button-container">  
+              <a href="./index.html" class="home-button button">Home</a>
+            </div>
+          </div>
+        <div class="body-wrapper">
+            <section id="search-form">
+                <h1>Search Forms</h1>
+                <form action="https://www.google.com/search" method="GET">
+                    <div class="input-wrapper">
+                        <label for="query" name="q" id="q">Mod Name</label>
+                        <input type="text" name="q" id="q">
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label for="game">Game:</label>
+                        <select name="q" id="game">
+                            <option>Lethal Company</option>
+                            <option>Risk of Rain 2</option>
+                            <option>Valheim</option>
+                            <option>Subnautica</option>
+                            <option>Timberborn</option>
+                        </select>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label for="thunderstore.io">thunderstore.io</label>
+                        <input type="radio" id="thunderstore.io" name="as_sitesearch" value="thunderstore.io">
+
+                        <label for="reddit.com">reddit.com</label>
+                        <input type="radio" id="reddit.com" name="as_sitesearch" value="reddit.com">
+
+                        <label for="youtube.com">youtube.com</label>
+                        <input type="radio" id="youtube.com" name="as_sitesearch" value="youtube.com">
+
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label for="mod-type">Mod Type</label>
+                        <select id="mod-type"name="as_occt=url" multiple="multiple" size="5">
+                            <option value="">Any</option>
+                            <option>Mod</option>
+                            <option>Asset Replacement</option>
+                            <option>Api & Libraries</option>
+                            <option>Modpacks</option>
+                        </select>
+                    </div>
+
+                    <div class="input-wrapper">
+                        <label for="img-search">Images</label>
+                        <input type="radio" id="img-search" name="tbm" value="isch">
+
+                        <label for="text-search">Text</label>
+                        <input type="radio" id="text-search" name="tbm" value="" checked>
+
+                        <label for="vid-search">Video</label>
+                        <input type="radio" id="vid-search" name="tbm" value="vid">
+
+                    </div>
+
+                    <input type="checkbox" id="safe-search" name="safe" value="active" hidden checked>
+
+                    <div class="input-wrapper">
+                        <input type="submit">
+                    </div>
+                </form>
+            </section>
+        </div>    
+    </body>
+</html>

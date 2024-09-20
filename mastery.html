@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Warframe Mastery Checker</title>
+        <link type="text/css" href="./css/main.css" rel="stylesheet">
+        <style>
+          td{
+            font-family: Silkscreen;
+          }
+        </style>
+    </head>
+<body>
+    <div class="body-wrapper">
+        <section id="Mastery Compare">
+            <div style="display: block">
+              <h2 style="display:inline;">Warframe Mastery Comparison</h2>
+              <!--Add a button here that displays/hides the instructions-->
+              <button onclick="document.querySelector('.instructions').style.display = document.querySelector('.instructions').style.display === 'none' ? 'block' : 'none'">?</button>
+              <small>Update 35.0 (2023-12-13) Protea Prime</small>
+            </div>
+            <section class="instructions" id="instructions" style="display: none; margin:auto; text-align: left;">
+              <h3>How to use:</h3>
+              <p>Enter your mastery data in the text area below.</p>
+              <p>You can get your mastery data taking a screenshot in game and extracting the text</p>
+              <ol>
+                  <li>Open Warframe</li>
+                  <li>Go to your profile</li>
+                  <li>Hover over your mastery</li>
+                  <li>Take a screenshot, and crop it to look like this:</li>
+                  <img src="./images/mastery.png" alt="Mastery Screenshot">
+                  <li>Use a free text extractor like <a href="https://www.imagetotext.io/">https://www.imagetotext.io/</a>, or <a href="https://www.imagetotext.info/">https://www.imagetotext.info/</a></li>
+                  <li>The Extracted text will be formatted similar to this: 
+                    <pre>
+526,600 Warframes 256,600 Primary Weapons 193,000 Secondary Weapons 274,000 Melee Weapons 6,000 Kitguns
+27,519 Missions
+3,855 The Steel Path Missions
+39,000 Railjack Intrinsics
+58,500 Drifter Intrinsics
+42,000 Sentinels
+24,000 Sentinel Weapons 53,600 Companions
+15,600 Archwing
+15,700 Archgun
+3,000 Archmelee
+7,200 Amps
+1,400 Necramechs
+                    </pre>
+                  </li>
+                  <li>Copy the extracted text and paste it in the text area below</li>
+                  <li>Click the "Compare" button and enjoy maximizing your mastery hunt!</li>
+              </ol>
+            </section>
+            <textarea id="inputText" rows="10" cols="100" placeholder="Enter Mastery Data Here..."></textarea><br>
+            <button onclick="compareData()">Compare</button>
+
+            <table id="resultTable">
+                <thead>
+                    <tr>
+                    <th>Category</th>
+                    <th>Available Mastery</th>
+                    <th>Attained Mastery</th>
+                    <th>Mastery Still Available</th>
+                    <th>Percentage Completion</th>
+                    <th>Percentage of Available</th>
+                    </tr>
+                </thead>
+            <tbody id="resultBody">
+            </tbody>
+            </table>
+        </section>
+    </div>
+    <script>
+      var total_mastery_sum = 0;
+      var input_mastery_sum = 0;
+      var total_completion = 0;
+      
+      function compareData() {
+          var inputData = document.getElementById("inputText").value;
+        var inputDict = {}; // Dictionary to store input data
+        var data = inputData.split(/\s+/); // Split input data by whitespace
+        var count = null;
+        var key = null;
+        total_mastery_sum = 0;
+        input_mastery_sum = 0;
+        total_completion = 0;
+        var resultArray = [];
+        
+        // Parse input data and create dictionary
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].match(/\d/)) {
+            // If the item contains a number, it's the count
+            count = parseInt(data[i].replace(/,/g, ''));
+          } else {
+            // Otherwise, it's part of the key (category)
+            if (key) {
+              key += " " + data[i]; // Append to current key
+            } else {
+              key = data[i];
+            }
+            
+            // Check if next item is a number (indicating the start of a new key-value pair)
+            if (i + 1 < data.length && data[i + 1].match(/\d/)) {
+              // Add the key-value pair to the dictionary
+              inputDict[key.toLowerCase()] = count;
+              // Reset key and count for the next key-value pair
+              key = null;
+              count = null;
+            }
+          }
+        }
+        
+        // If there's still a non-null key and count, add them to the dictionary
+        if (key && count) {
+          inputDict[key.toLowerCase()] = count;
+        }
+      
+        // Output the input dictionary to console
+        console.log("Input Dictionary:", inputDict);
+      
+        // Fetch CSV data
+        fetch('total_mastery_data.csv')
+          .then(response => response.text())
+          .then(csvData => {
+            var rows = csvData.split('\n');
+            var resultBody = document.getElementById("resultBody");
+            resultBody.innerHTML = ""; // Clear previous results
+            
+            // Parse CSV data and create table rows
+            rows.forEach(function(row, index) {
+              if (index === 0) return; // Skip header row
+              var csvRow = row.trim().split(',');
+              if (csvRow.length >= 3) {
+                var category = csvRow[0].toLowerCase();
+                var csvCount = parseInt(csvRow[1].replace(/,/g, ''));
+                var csvMastery = parseInt(csvRow[2].replace(/,/g, ''));
+                var inputMastery = inputDict[category] || "Not found";
+                var csvInputDiff = csvMastery - (typeof inputMastery === "number" ? inputMastery : 0);
+                if (csvInputDiff < 0) csvInputDiff = 0;
+                var percentage = csvMastery > 0 ? (100-((csvInputDiff / csvMastery)) * 100).toFixed(2) : "N/A";
+      
+                // Calculate total mastery sum
+                total_mastery_sum += csvMastery;
+                // Calculate input mastery sum
+                input_mastery_sum += ((typeof inputMastery === "number" && inputMastery <= csvMastery) ? inputMastery : 0);
+      
+                // Log each call to the input dictionary
+                console.log("Category:", category, "Value:", inputMastery);
+                // alter this  to add the rows to the result array instead of the table
+                resultArray.push([csvRow[0], csvMastery, inputMastery, csvInputDiff, percentage, 0]);
+              }
+            });
+            
+            addRowsToTable(resultArray);
+            
+          });
+      }
+      
+      //function that takes an input 2d array and adds the rows to the table, and the final row will be bolded
+      function addRowsToTable(data) {
+        var resultBody = document.getElementById("resultBody");
+        resultBody.innerHTML = ""; // Clear previous results
+        
+        data.forEach(function(row, index) {
+          var category = row[0].toLowerCase();
+          var csvMastery = row[1];
+          var inputMastery = row[2];
+          var csvInputDiff = row[3];
+          var percentage = row[4];
+          var percentage_of_available = input_mastery_sum > 0 ? ((csvInputDiff / (total_mastery_sum-input_mastery_sum)) * 100).toFixed(2) : "N/A";
+      
+          var rowHtml = "<tr>";
+          rowHtml += "<th>" + row[0] + "</th>";
+          rowHtml += "<td>" + csvMastery.toLocaleString() + "</td>";
+          rowHtml += "<td>" + (typeof inputMastery === "number" ? inputMastery.toLocaleString() : inputMastery) + "</td>";
+          rowHtml += "<td>" + csvInputDiff.toLocaleString() + "</td>";
+          rowHtml += "<td>" + percentage + "%</td>";
+          rowHtml += "<td>" + percentage_of_available + "%</td>";
+          rowHtml += "</tr>";
+          
+          resultBody.innerHTML += rowHtml;
+        });
+        // Calculate total completion
+        total_completion = (100-((total_mastery_sum - input_mastery_sum) / total_mastery_sum) * 100).toFixed(2);
+        // Add Total row to the table
+        var totalRow = "<tr>";
+        totalRow += "<th><strong>Total</strong></th>";
+        totalRow += "<td><strong>" + total_mastery_sum.toLocaleString() + "</strong></td>";
+        totalRow += "<td><strong>" + input_mastery_sum.toLocaleString() + "</strong></td>";
+        totalRow += "<td><strong>" + (total_mastery_sum - input_mastery_sum).toLocaleString() + "</strong></td>";
+        totalRow += "<td><strong>" + total_completion + "%</strong></td>";
+        totalRow += "<td><strong>100%</strong></td>";
+        totalRow += "</tr>";
+      
+        resultBody.innerHTML += totalRow;
+      }
+      
+      </script>
+
+</body>
+</html>
