@@ -42,15 +42,18 @@ body{
     margin: 1em;
 }
 #myCarousel{
-    width:80%;
+    width:100%;
     align-items: center;
     justify-content: center;
     padding: 4em;
+    position:relative;
+    height: fit-content;
 }
 
 .carousel-inner{
     height:50vh;
-    
+    min-height: fit-content;
+    overflow: visible;
 }
 .carousel-caption{
     position:unset;
@@ -66,4 +69,15 @@ body{
     color: var(--text-heading-color);
     position: relative;
     top:-2em;
+}
+.carousel-caption ul{
+    text-align: left;
+}
+.carousel-control-next {
+    right: -2em;
+    position: absolute;
+}
+.carousel-control-prev {
+    left: -2em;
+    position: absolute;
 }
