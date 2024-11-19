@@ -1,0 +1,36 @@
+:root{
+    --main-color: rgb(40,40,40);
+    --background-color: black;
+    --secondary-color: rgb(170, 174, 192);
+    --border-color: rgb(0, 31, 167);
+    --border-radius: 0%;
+    --text-heading-color: rgb(50,200,255);
+    --font-color: white;
+}
+*{
+    max-width: 100%;
+    color: var(--font-color);
+}
+body{
+    background-color: black;
+}
+.space{
+    position:absolute;
+    top: 50%;
+    left: 50%;
+}
+.earth{
+    transform-origin: center;
+    transform: rotate(23.4deg);
+}
+.mercury{
+    transform-origin: center;
+    transform: rotate(2deg);
+}
+.sketchfab-embed-wrapper{
+    .viewer{
+        .watermark{
+            display: none;
+        }
+    }
+}
