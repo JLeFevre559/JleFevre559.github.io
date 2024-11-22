@@ -84,7 +84,7 @@ function add_planets_to_html(planets){
     for(let i = 0; i < planets.length; i++){
         let planet = planets[i];
         let real_position = planet.real_position;
-        let planet_html = '<div class="planet container" id="' + planet.name + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + 19.175 +'px;">';
+        let planet_html = '<div class="planet container" id="' + planet.name + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] +'px;">';
                 planet_html += '<div class="row">';
                     // planet_html += '<canvas id="canvas" width="' + planet.maxX + '" height="' + planet.maxY + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] + 'px;"></canvas>';
                     planet_html += '<div class="planet_model col-sm">';
