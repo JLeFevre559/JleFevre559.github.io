@@ -12,7 +12,8 @@
             "axis_of_rotation": "2 Degrees",
             "equatorial_radius": "2439",
             "mass": "3.3 x 10^23",
-            "gravity": "3.7"
+            "gravity": "3.7",
+            "origin": -1
         },
         "Venus": {
             "orbital_distance": "0.723",
@@ -26,7 +27,8 @@
             "axis_of_rotation": "177 degrees",
             "equatorial_radius": "6052",
             "mass": "4.87 x 10^24",
-            "gravity": "8.87"
+            "gravity": "8.87",
+            "origin": 0.75
         },
         "Earth": {
             "orbital_distance": "1",
@@ -43,7 +45,8 @@
             "gravity": "9.81",
             "Moon": {
                 "fun_fact": "temp"
-            }
+            },
+            "origin": -0.5
         },
         "Mars": {
             "orbital_distance": "1.52",
@@ -63,7 +66,8 @@
             },
             "Deimos": {
                 "fun_fact": "temp"
-            }
+            },
+            "origin": 0.2
         },
         "Jupiter": {
             "orbital_distance": "5.20",
@@ -80,7 +84,8 @@
             "gravity": "24.79",
             "Titan": {
                 "fun_fact": "temp"
-            }
+            },
+            "origin": 0.3
         },
         "Saturn": {
             "orbital_distance": "9.58",
@@ -94,7 +99,8 @@
             "axis_of_rotation": "26.7 degrees",
             "equatorial_radius": "60268",
             "mass": "5.68 x 10^26",
-            "gravity": "10.44"
+            "gravity": "10.44",
+            "origin": -0.5
         },
         "Neptune": {
             "orbital_distance": "30.07",
@@ -108,7 +114,8 @@
             "axis_of_rotation": "28.3 degrees",
             "equatorial_radius": "24764",
             "mass": "1.02 x 10^26",
-            "gravity": "11.15"
+            "gravity": "11.15",
+            "origin": 0.8
         },
         "Uranus": {
             "orbital_distance": "19.19",
@@ -122,7 +129,8 @@
             "axis_of_rotation": "82.23",
             "equatorial_radius": "25559",
             "mass": "8.68 x 10^25",
-            "gravity": "8.69"
+            "gravity": "8.69",
+            "origin": 0
         },
         "Pluto": {
             "orbital_distance": "39.48",
@@ -136,7 +144,8 @@
             "axis_of_rotation": "122.5 degrees",
             "equatorial_radius": "1188",
             "mass": "1.31 x 10^22",
-            "gravity": "0.62"
+            "gravity": "0.62",
+            "origin": -0.9
         },
         "Eris": {
             "orbital_distance": "67.86",
@@ -150,7 +159,8 @@
             "axis_of_rotation": "unmeasured, 78.3 degrees assumed",
             "equatorial_radius": "1163",
             "mass": "1.66 x 10^22",
-            "gravity": "0.82"
+            "gravity": "0.82",
+            "origin": -0.2
         }
     }
 }

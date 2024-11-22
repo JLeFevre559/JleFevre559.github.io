@@ -32,9 +32,9 @@ function read_planet_data(planet_data_json){
     let planets = [];
     let planets_data = JSON.parse(planet_data_json);
     planets_data = planets_data.objects;
-    let planet_names = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune', 'Pluto', 'Eris'];
+    let planet_names = ['Eris', 'Pluto', 'Neptune', 'Uranus', 'Saturn', 'Jupiter', 'Mars', 'Earth', 'Venus', 'Mercury'];
     // Origins represents the starting position of the planets, repective to their max x values. Y values always start positive, determined by x value.
-    let origins =      [       -1,     .75,     -.5,     .2,        .3,      -.5,        0,        .8,     -.9,    -.2];
+    
     let screen_width = window.innerWidth;
     let screen_height = window.innerHeight;
     width_padding = .025*screen_width;
@@ -51,7 +51,7 @@ function read_planet_data(planet_data_json){
         let maxX = screen_width/2 - ((i+1)*width_padding);
         let maxY = screen_height/2 - ((i+1)*height_padding);
         //find the starting position of the planet
-        let startX = origins[i]*maxX;
+        let startX = planet_data.origin*maxX;
         // startY is defined by the equation of an ellipse, always the positive value
         let startY = (maxY*((maxX**2-startX**2)**.5))/maxX;
         let start = [startX,startY];
@@ -86,6 +86,8 @@ function add_planets_to_html(planets){
                     planet_html += '<div class="planet_model col-sm">';
                         // planet_html += '<img src="https://t4.ftcdn.net/jpg/10/18/11/31/360_F_1018113113_Ce9kjo5sLSpeQE4OqI3g2Khc9gp6ZzJ6.jpg"' + planet.name + '.png" alt="' + planet.name + '">';
                         planet_html += '<model-viewer alt="Eris" src="assets/3d/eris.glb" ar environment-image="assets/3d/moon_1k.hdr" poster="" shadow-intensity="1" touch-action="pan-y" disable-pan auto-rotate rotation-per-second=0.1rad disable-tap></model-viewer>';
+                        planet_html += '<div class="planet_orbit" style="width:' + planet.maxX + 'px; height:' + planet.maxY + 'px;"></div>';
+                        planet_html += '<div class="planet_placeholder" style="width:10px; height:10px;"></div>';
                     planet_html += '</div>';
                     planet_html += '<div class="card col-sm" planet_info>';
                         planet_html += '<h1>' + planet.name + '</h1>';

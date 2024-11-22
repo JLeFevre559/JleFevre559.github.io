@@ -9,3 +9,21 @@ body{
 .card{
     display:none;
 }
+.planet_orbit{
+    border:2px dashed white;
+    border-radius:50%;
+    position:absolute;
+    top:50%;
+    left:50%;
+
+}
+.planet_placebolder{
+    display: block;
+    position:absolute;
+    background-color: red;
+    border-radius:50%;
+    width: 100px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+}
