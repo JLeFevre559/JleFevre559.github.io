@@ -36,9 +36,13 @@ function read_planet_data(planet_data_json){
     // Origins represents the starting position of the planets, repective to their max x values. Y values always start positive, determined by x value.
     
     let screen_width = window.innerWidth;
+    console.log("screen width:", screen_width);
     let screen_height = window.innerHeight;
+    console.log("screen height:", screen_height);
     width_padding = .025*screen_width;
+    console.log("width padding:", width_padding);
     height_padding = .025*screen_height;
+    console.log("height padding:", height_padding);
     for(let i = 0; i < planet_names.length; i++){
         let planet_name = planet_names[i];
         let planet_data = planets_data[planet_name];
@@ -80,14 +84,14 @@ function add_planets_to_html(planets){
     for(let i = 0; i < planets.length; i++){
         let planet = planets[i];
         let real_position = planet.real_position;
-        let planet_html = '<div class="planet container" id="' + planet.name + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] +'px;">';
+        let planet_html = '<div class="planet container" id="' + planet.name + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + 19.175 +'px;">';
                 planet_html += '<div class="row">';
                     // planet_html += '<canvas id="canvas" width="' + planet.maxX + '" height="' + planet.maxY + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] + 'px;"></canvas>';
                     planet_html += '<div class="planet_model col-sm">';
                         // planet_html += '<img src="https://t4.ftcdn.net/jpg/10/18/11/31/360_F_1018113113_Ce9kjo5sLSpeQE4OqI3g2Khc9gp6ZzJ6.jpg"' + planet.name + '.png" alt="' + planet.name + '">';
-                        planet_html += '<model-viewer alt="Eris" src="assets/3d/eris.glb" ar environment-image="assets/3d/moon_1k.hdr" poster="" shadow-intensity="1" touch-action="pan-y" disable-pan auto-rotate rotation-per-second=0.1rad disable-tap></model-viewer>';
-                        planet_html += '<div class="planet_orbit" style="width:' + planet.maxX + 'px; height:' + planet.maxY + 'px;"></div>';
-                        planet_html += '<div class="planet_placeholder" style="width:10px; height:10px;"></div>';
+                        planet_html += '<model-viewer alt="Eris" src="assets/3d/eris.glb" ar environment-image="assets/3d/moon_1k.hdr" poster="" shadow-intensity="1" touch-action="pan-y" disable-pan auto-rotate rotation-per-second=0.1rad disable-tap style="transform: rotate('+ planet.axial_tilt+ 'deg);"></model-viewer>';
+                        // planet_html += '<div class="planet_orbit" style="width:' + 2*planet.maxX + 'px; height:' + 2*planet.maxY + 'px;"></div>';
+                        // planet_html += '<div class="planet_placeholder" style="width:10px; height:10px;"></div>';
                     planet_html += '</div>';
                     planet_html += '<div class="card col-sm" planet_info>';
                         planet_html += '<h1>' + planet.name + '</h1>';
