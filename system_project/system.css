@@ -1,5 +1,11 @@
+:root{
+    --bs-body-bg: black;
+}
 body{
     display:flex;
     width: 100vw;
     height: 100vh;
+}
+.card{
+    display:none;
 }
