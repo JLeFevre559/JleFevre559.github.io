@@ -50,7 +50,9 @@ model-viewer:hover{
     animation-duration: .5s;
 }
 .planet:hover{
+    animation-duration: .1s;
     .card{
         display:block;
+        z-index: 1;
     }
 }
