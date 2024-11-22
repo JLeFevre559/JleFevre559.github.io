@@ -1,0 +1,96 @@
+class planet{
+    constructor(name, origin, maxX, maxY, start, mass, radius, semi_major_axis, perihelion, aphelion, orbital_period, rotation_period, axial_tilt, temperature, surface_gravity, composition, moons, sub_moons){
+        this.name = name;
+        this.mass = mass;
+        this.radius = radius;
+        this.semi_major_axis = semi_major_axis;
+        this.perihelion = perihelion;
+        this.aphelion = aphelion;
+        this.orbital_period = orbital_period;
+        this.rotation_period = rotation_period;
+        this.axial_tilt = axial_tilt;
+        this.temperature = temperature;
+        this.surface_gravity = surface_gravity;
+        this.composition = composition;
+        this.moons = moons;
+        this.sub_moons = sub_moons;
+        this.origin = origin;
+        this.maxX = maxX;
+        this.maxY = maxY;
+        this.start = start;
+        this.position = start;
+    }
+}
+
+function read_planet_data(planet_data_json){
+    let planets = [];
+    let planets_data = JSON.parse(planet_data_json);
+    planets_data = planets_data.objects;
+    let planet_names = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune', 'Pluto', 'Eris'];
+    for(let i = 0; i < planet_names.length; i++){
+        let planet_name = planet_names[i];
+        let planet_data = planets_data[planet_name];
+        let name = planet_names[i];
+        let origin = [0, 0];
+        let maxX = 0;
+        let maxY = 0;
+        let start = [0,0];
+        let mass = planet_data.mass;
+        let radius = planet_data.equatorial_radius;
+        let semi_major_axis = planet_data.orbital_distance;
+        let perihelion = planet_data.perihelion;
+        let aphelion = planet_data.aphelion;
+        let orbital_period = planet_data.orbital_period;
+        let rotation_period = planet_data.rotationary_period;
+        let axial_tilt = planet_data.axis_of_rotation;
+        let temperature = planet_data.temperature;
+        let surface_gravity = planet_data.gravity;
+        let composition = planet_data.composition;
+        let moons = planet_data.number_of_moons;
+        let sub_moons = 0;
+        planets.push(new planet(name, origin, maxX, maxY, start, mass, radius, semi_major_axis, perihelion, aphelion, orbital_period, rotation_period, axial_tilt, temperature, surface_gravity, composition, moons, sub_moons));
+    }
+    return planets;
+}
+
+function add_planets_to_html(planets){
+    console.log('Adding planets to html');
+    console.log(planets);
+    let planet_div = document.getElementById('planets');
+    for(let i = 0; i < planets.length; i++){
+        let planet = planets[i];
+        let planet_html = '<div class="planet" id="' + planet.name + '">';
+                planet_html += '<div class="planet_model">';
+                    planet_html += '<img src="https://t4.ftcdn.net/jpg/10/18/11/31/360_F_1018113113_Ce9kjo5sLSpeQE4OqI3g2Khc9gp6ZzJ6.jpg"' + planet.name + '.png" alt="' + planet.name + '">';
+                planet_html += '</div>';
+                planet_html += '<div class=card planet_info>';
+                    planet_html += '<h1>' + planet.name + '</h1>';
+                    planet_html += '<p>Mass: ' + planet.mass + ' kg</p>';
+                    planet_html += '<p>Radius: ' + planet.radius + ' km</p>';
+                    planet_html += '<p>Semi Major Axis: ' + planet.semi_major_axis + ' AU</p>';
+                    planet_html += '<p>Perihelion: ' + planet.perihelion + ' AU</p>';
+                    planet_html += '<p>Aphelion: ' + planet.aphelion + ' AU</p>';
+                    planet_html += '<p>Orbital Period: ' + planet.orbital_period + '</p>';
+                    planet_html += '<p>Rotation Period: ' + planet.rotation_period + '</p>';
+                    planet_html += '<p>Axial Tilt: ' + planet.axial_tilt + ' degrees</p>';
+                    planet_html += '<p>Temperature: ' + planet.temperature + ' K</p>';
+                    planet_html += '<p>Surface Gravity: ' + planet.surface_gravity + ' m/s^2</p>';
+                    planet_html += '<p>Composition: ' + planet.composition + '</p>';
+                    planet_html += '<p>Moons: ' + planet.moons + '</p>';
+                    planet_html += '<p>Sub Moons: ' + planet.sub_moons + '</p>';
+                planet_html += '</div>';
+            planet_html += '</div>';
+        planet_div.innerHTML += planet_html;
+    
+    }
+}
+
+fetch('https://jlefevre559.github.io/system_project/system.json')
+    .then(response => response.json())
+    .then(data => {
+        planet_data_json = JSON.stringify(data);
+
+        var planets = read_planet_data(planet_data_json);
+        add_planets_to_html(planets);
+    });
+

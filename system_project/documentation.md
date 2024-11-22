@@ -16,7 +16,7 @@ As a user I want to see the following objects
     * Uranus
     * Pluto
     * Eris
-As a user I want to be able to see interesting information about each planet
+%half finished%As a user I want to be able to see interesting information about each planet
     * Orbital distance
     * Perihelion
     * Aphelion
