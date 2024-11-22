@@ -39,7 +39,6 @@ function read_planet_data(planet_data_json){
     let screen_height = window.innerHeight;
     width_padding = .025*screen_width;
     height_padding = .025*screen_height;
-    n = 0
     for(let i = 0; i < planet_names.length; i++){
         let planet_name = planet_names[i];
         let planet_data = planets_data[planet_name];
@@ -70,7 +69,6 @@ function read_planet_data(planet_data_json){
         let moons = planet_data.number_of_moons;
         let sub_moons = 0;
         planets.push(new planet(name, origin, maxX, maxY, start, mass, radius, semi_major_axis, perihelion, aphelion, orbital_period, rotation_period, axial_tilt, temperature, surface_gravity, composition, moons, sub_moons));
-        n++;
     }
     return planets;
 }
@@ -87,7 +85,7 @@ function add_planets_to_html(planets){
                     // planet_html += '<canvas id="canvas" width="' + planet.maxX + '" height="' + planet.maxY + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] + 'px;"></canvas>';
                     planet_html += '<div class="planet_model col-sm">';
                         // planet_html += '<img src="https://t4.ftcdn.net/jpg/10/18/11/31/360_F_1018113113_Ce9kjo5sLSpeQE4OqI3g2Khc9gp6ZzJ6.jpg"' + planet.name + '.png" alt="' + planet.name + '">';
-                        planet_html += '<model-viewer alt="Eris" src="assets/3d/eris.glb" ar environment-image="assets/3d/moon_1k.hdr" poster="" shadow-intensity="1" camera-controls touch-action="pan-y"></model-viewer>';
+                        planet_html += '<model-viewer alt="Eris" src="assets/3d/eris.glb" ar environment-image="assets/3d/moon_1k.hdr" poster="" shadow-intensity="1" touch-action="pan-y" disable-pan disable-tap></model-viewer>';
                     planet_html += '</div>';
                     planet_html += '<div class="card col-sm" planet_info>';
                         planet_html += '<h1>' + planet.name + '</h1>';
