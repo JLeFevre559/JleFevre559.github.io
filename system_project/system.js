@@ -45,11 +45,11 @@ function read_planet_data(planet_data_json){
         let name = planet_names[i];
         //origin represents the center of the ellipse that the planet will orbit around
         let originX = screen_width/2
-        let originY = screen_height/2 + (n*(height_padding))
+        let originY = screen_height/2 + (i*(height_padding))
         let origin = [originX, originY];
         //maxX represents the maximum width of the ellipse that the planet will orbit around
-        let maxX = screen_width/2 - ((n+1)*width_padding);
-        let maxY = screen_height/2 - ((n+1)*height_padding);
+        let maxX = screen_width/2 - ((i+1)*width_padding);
+        let maxY = screen_height/2 - ((i+1)*height_padding);
         //find the starting position of the planet
         let startX = origins[i]*maxX;
         // startY is defined by the equation of an ellipse, always the positive value
