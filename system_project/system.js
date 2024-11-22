@@ -70,6 +70,7 @@ function read_planet_data(planet_data_json){
         let moons = planet_data.number_of_moons;
         let sub_moons = 0;
         planets.push(new planet(name, origin, maxX, maxY, start, mass, radius, semi_major_axis, perihelion, aphelion, orbital_period, rotation_period, axial_tilt, temperature, surface_gravity, composition, moons, sub_moons));
+        n++;
     }
     return planets;
 }
