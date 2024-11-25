@@ -60,6 +60,7 @@ model-viewer{
 .planet:hover{
     animation-duration: .1s;
     .card{
+        z-index: 1;
         display:block;
     }
 }
