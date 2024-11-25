@@ -87,16 +87,16 @@ function add_planets_to_html(planets){
         // This line sets the scale of the planet on a logarithmic scale so that earth is original sized, and jupiter is 3x larger
         let planet_scale = (planet.radius/6371)**0.4545
         console.log(planet_scale);
-        let planet_html = '<div class="planet container" id="' + planet.name + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] +'px;">';
-                planet_html += '<div class="row">';
+        let planet_html = '<div class="planet" id="' + planet.name + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] +'px;">';
+                planet_html += '<div class="">';
                     // planet_html += '<canvas id="canvas" width="' + planet.maxX + '" height="' + planet.maxY + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] + 'px;"></canvas>';
-                    planet_html += '<div class="planet_model col-sm" width="'+ 100*planet_scale + 'px" height="' + 100*planet_scale +'px">';
+                    planet_html += '<div class="planet_model" style=width:'+ 100*planet_scale + 'px; height:' + 100*planet_scale +'px;>';
                         // planet_html += '<img src="https://t4.ftcdn.net/jpg/10/18/11/31/360_F_1018113113_Ce9kjo5sLSpeQE4OqI3g2Khc9gp6ZzJ6.jpg"' + planet.name + '.png" alt="' + planet.name + '">';
                         planet_html += '<model-viewer alt="' + planet.name + '" src="assets/3d/'+ planet.name +'.glb" ar environment-image="assets/3d/moon_1k.hdr" poster="" shadow-intensity="1" touch-action="pan-y" disable-pan auto-rotate rotation-per-second=0.1rad disable-tap style="transform: rotate('+ planet.axial_tilt+ 'deg);"></model-viewer>';
                         // planet_html += '<div class="planet_orbit" style="width:' + 2*planet.maxX + 'px; height:' + 2*planet.maxY + 'px;"></div>';
                         // planet_html += '<div class="planet_placeholder" style="width:10px; height:10px;"></div>';
                     planet_html += '</div>';
-                    planet_html += '<div class="card col-sm" planet_info>';
+                    planet_html += '<div class="card" planet_info>';
                         planet_html += '<h1>' + planet.name + '</h1>';
                         planet_html += '<p>Mass: ' + planet.mass + ' kg</p>';
                         planet_html += '<p>Radius: ' + planet.radius + ' km</p>';
