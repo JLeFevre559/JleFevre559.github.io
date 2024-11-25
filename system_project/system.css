@@ -51,7 +51,7 @@ model-viewer:hover{
 }
 model-viewer{
     width:100%;
-    height:auto;
+    height:100%;
 }
 .planet:hover{
     animation-duration: .1s;
