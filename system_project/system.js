@@ -85,7 +85,14 @@ function add_planets_to_html(planets){
         let planet = planets[i];
         let real_position = planet.real_position;
         // This line sets the scale of the planet on a logarithmic scale so that earth is original sized, and jupiter is 3x larger
-        let planet_scale = (planet.radius/6371)**0.4545
+        let radius = planet.radius;
+        if(planet.name == 'Saturn'){
+            radius += 80000;
+        }
+        else if(planet.name == 'Uranus'){
+            radius += 25000;
+        }
+        let planet_scale = (radius/6371)**0.4545
         console.log(planet_scale);
         let planet_html = '<div class="planet" id="' + planet.name + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] +'px;">';
                 planet_html += '<div class="">';
