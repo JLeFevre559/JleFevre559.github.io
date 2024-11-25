@@ -90,7 +90,7 @@ function add_planets_to_html(planets){
         let planet_html = '<div class="planet" id="' + planet.name + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] +'px;">';
                 planet_html += '<div class="">';
                     // planet_html += '<canvas id="canvas" width="' + planet.maxX + '" height="' + planet.maxY + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] + 'px;"></canvas>';
-                    planet_html += '<div class="planet_model" style=width:'+ 100*planet_scale + 'px; height:' + 100*planet_scale +'px;>';
+                    planet_html += '<div class="planet_model" style="width:'+ 100*planet_scale + 'px; height:' + 100*planet_scale +'px;">';
                         // planet_html += '<img src="https://t4.ftcdn.net/jpg/10/18/11/31/360_F_1018113113_Ce9kjo5sLSpeQE4OqI3g2Khc9gp6ZzJ6.jpg"' + planet.name + '.png" alt="' + planet.name + '">';
                         planet_html += '<model-viewer alt="' + planet.name + '" src="assets/3d/'+ planet.name +'.glb" ar environment-image="assets/3d/moon_1k.hdr" poster="" shadow-intensity="1" touch-action="pan-y" disable-pan auto-rotate rotation-per-second=0.1rad disable-tap style="transform: rotate('+ planet.axial_tilt+ 'deg);"></model-viewer>';
                         // planet_html += '<div class="planet_orbit" style="width:' + 2*planet.maxX + 'px; height:' + 2*planet.maxY + 'px;"></div>';

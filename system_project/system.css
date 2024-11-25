@@ -49,6 +49,10 @@ model-viewer:hover{
     transform: scale(1.1);
     animation-duration: .5s;
 }
+model-viewer{
+    width:100%;
+    height:auto;
+}
 .planet:hover{
     animation-duration: .1s;
     z-index: 1;
