@@ -16,7 +16,7 @@ body{
 .card{
     display:none;
     background-color: var(--bs-primary-bg-subtle);
-    opacity: 0.7;
+    opacity: 0.9;
 }
 .planet_orbit{
     border:2px dashed white;
@@ -35,7 +35,7 @@ body{
 }
 .planet{
     position:absolute;
-    opacity: 0.7;
+    opacity: 0.9;
 }
 #planets{
     display:flex;
