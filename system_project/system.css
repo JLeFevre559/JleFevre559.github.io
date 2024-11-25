@@ -16,6 +16,9 @@ body{
 .card{
     display:none;
     background-color: var(--bs-primary-bg-subtle);
+    position:absolute;
+    right:0;
+    bottom:0;
 }
 .planet_orbit{
     border:2px dashed white;
@@ -34,7 +37,6 @@ body{
 }
 .planet{
     position:absolute;
-    width: 100%;
 }
 #planets{
     display:flex;
@@ -57,7 +59,6 @@ model-viewer{
 }
 .planet:hover{
     animation-duration: .1s;
-    z-index: 1;
     .card{
         display:block;
     }
