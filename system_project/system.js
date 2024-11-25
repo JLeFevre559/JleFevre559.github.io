@@ -60,7 +60,7 @@ function read_planet_data(planet_data_json){
         let startY = (maxY*((maxX**2-startX**2)**.5))/maxX;
         let start = [startX,startY];
         let mass = planet_data.mass;
-        let radius = planet_data.equatorial_radius;
+        let radius = Number(planet_data.equatorial_radius);
         let semi_major_axis = planet_data.orbital_distance;
         let perihelion = planet_data.perihelion;
         let aphelion = planet_data.aphelion;
@@ -85,7 +85,7 @@ function add_planets_to_html(planets){
         let planet = planets[i];
         let real_position = planet.real_position;
         // This line sets the scale of the planet on a logarithmic scale so that earth is original sized, and jupiter is 3x larger
-        let planet_scale = (planet.equatorial_radius/6371)**0.4545
+        let planet_scale = (planet.radius/6371)**0.4545
         console.log(planet_scale);
         let planet_html = '<div class="planet container" id="' + planet.name + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] +'px;">';
                 planet_html += '<div class="row">';
