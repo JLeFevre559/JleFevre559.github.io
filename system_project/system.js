@@ -87,12 +87,10 @@ function add_planets_to_html(planets){
         
         // Set rotation period in degrees per second, rotation period is in hours with a scale of 1 hour/second
         let rotation_period = (1/planet.rotation_period)*360;
-        let planet_height = 100*planet_scale;
-        let planet_width = 100*planet_scale;
+        
         let radius = planet.radius;
         if(planet.name == 'Saturn'){
             radius += 80000;
-            planet_height = 50*planet_scale;
         }
         else if(planet.name == 'Uranus'){
             radius += 25000;
@@ -102,7 +100,11 @@ function add_planets_to_html(planets){
         let offsetY = 1/2*planet_height;
         // This line sets the scale of the planet on a logarithmic scale so that earth is original sized, and jupiter is 3x larger
         let planet_scale = (radius/6371)**0.4545
-        console.log(planet_scale);
+        let planet_height = 100*planet_scale;
+        let planet_width = 100*planet_scale;
+        if(planet.name == 'Saturn'){
+            planet_width = planet_width/2;
+        }
         let planet_html = '<div class="planet" id="' + planet.name + '" style="position:absolute; left:' + (real_position[0]-offsetX) + 'px; top:' + (real_position[1]-offsetY) +'px;">';
                 planet_html += '<div class="">';
                     // planet_html += '<canvas id="canvas" width="' + planet.maxX + '" height="' + planet.maxY + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] + 'px;"></canvas>';
