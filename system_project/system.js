@@ -102,9 +102,6 @@ function add_planets_to_html(planets){
 
         let planet_height = 100*planet_scale;
         let planet_width = 100*planet_scale;
-        if(planet.name == 'Saturn'){
-            planet_height = planet_height/2;
-        }
 
         // find planet offset to center the planet in its correct position on the ellipse
         let offsetX = 1/2*planet_width;
