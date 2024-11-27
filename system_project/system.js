@@ -84,22 +84,29 @@ function add_planets_to_html(planets){
     for(let i = 0; i < planets.length; i++){
         let planet = planets[i];
         let real_position = planet.real_position;
+        
+        // Set rotation period in degrees per second, rotation period is in hours with a scale of 1 hour/second
+        let rotation_period = (1/planet.rotation_period)*360;
         // This line sets the scale of the planet on a logarithmic scale so that earth is original sized, and jupiter is 3x larger
+        let planet_scale = (radius/6371)**0.4545
+        let planet_height = 100*planet_scale;
+        let planet_width = 100*planet_scale;
         let radius = planet.radius;
         if(planet.name == 'Saturn'){
             radius += 80000;
+            planet_height = 50*planet_scale;
         }
         else if(planet.name == 'Uranus'){
             radius += 25000;
         }
-        // Set rotation period in degrees per second, rotation period is in hours with a scale of 1 hour/second
-        let rotation_period = (1/planet.rotation_period)*360;
-        let planet_scale = (radius/6371)**0.4545
+        // find planet offset to center the planet in its correct position on the ellipse
+        let offsetX = 1/2*planet_width;
+        let offsetY = 1/2*planet_height;
         console.log(planet_scale);
-        let planet_html = '<div class="planet" id="' + planet.name + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] +'px;">';
+        let planet_html = '<div class="planet" id="' + planet.name + '" style="position:absolute; left:' + (real_position[0]-offsetX) + 'px; top:' + (real_position[1]-offsetY) +'px;">';
                 planet_html += '<div class="">';
                     // planet_html += '<canvas id="canvas" width="' + planet.maxX + '" height="' + planet.maxY + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] + 'px;"></canvas>';
-                    planet_html += '<div class="planet_model" style="width:'+ 100*planet_scale + 'px; height:' + 100*planet_scale +'px;">';
+                    planet_html += '<div class="planet_model" style="width:'+ planet_width + 'px; height:' + planet_height +'px;">';
                         // planet_html += '<img src="https://t4.ftcdn.net/jpg/10/18/11/31/360_F_1018113113_Ce9kjo5sLSpeQE4OqI3g2Khc9gp6ZzJ6.jpg"' + planet.name + '.png" alt="' + planet.name + '">';
                         planet_html += '<model-viewer alt="' + planet.name + '" src="assets/3d/'+ planet.name +'.glb" ar environment-image="assets/3d/moon_1k.hdr" poster="" shadow-intensity="1" touch-action="pan-y" disable-pan auto-rotate rotation-per-second='+ rotation_period +'deg disable-tap style="transform: rotate('+ planet.axial_tilt+ 'deg);" disable-zoom></model-viewer>';
                         // planet_html += '<div class="planet_orbit" style="width:' + 2*planet.maxX + 'px; height:' + 2*planet.maxY + 'px;"></div>';
