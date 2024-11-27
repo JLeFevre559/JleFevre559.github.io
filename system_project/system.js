@@ -87,8 +87,6 @@ function add_planets_to_html(planets){
         
         // Set rotation period in degrees per second, rotation period is in hours with a scale of 1 hour/second
         let rotation_period = (1/planet.rotation_period)*360;
-        // This line sets the scale of the planet on a logarithmic scale so that earth is original sized, and jupiter is 3x larger
-        let planet_scale = (radius/6371)**0.4545
         let planet_height = 100*planet_scale;
         let planet_width = 100*planet_scale;
         let radius = planet.radius;
@@ -102,6 +100,8 @@ function add_planets_to_html(planets){
         // find planet offset to center the planet in its correct position on the ellipse
         let offsetX = 1/2*planet_width;
         let offsetY = 1/2*planet_height;
+        // This line sets the scale of the planet on a logarithmic scale so that earth is original sized, and jupiter is 3x larger
+        let planet_scale = (radius/6371)**0.4545
         console.log(planet_scale);
         let planet_html = '<div class="planet" id="' + planet.name + '" style="position:absolute; left:' + (real_position[0]-offsetX) + 'px; top:' + (real_position[1]-offsetY) +'px;">';
                 planet_html += '<div class="">';
