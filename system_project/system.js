@@ -99,9 +99,10 @@ function add_planets_to_html(planets){
         
         // This line sets the scale of the planet on a logarithmic scale so that earth is original sized, and jupiter is 3x larger
         let planet_scale = (radius/6371)**0.4545
-        let earth_width = window.innerWidth*.05;
-        let planet_height = earth_width*planet_scale;
-        let planet_width = earth_width*planet_scale;
+
+        let planet_height = 100*planet_scale;
+        let planet_width = 100*planet_scale;
+
 
         // find planet offset to center the planet in its correct position on the ellipse
         let offsetX = 1/2*planet_width;
