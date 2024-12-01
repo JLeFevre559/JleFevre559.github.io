@@ -52,12 +52,12 @@ class planet{
         // Swap movement_per_second to move in the opposite direction
         if((this.position[0] <= -(this.maxX)) && this.top){
             this.top = false;
-            this.z_index = -this.z_index;
+            this.z_index = 20-this.z_index;
             this.movement_per_second = -this.movement_per_second;
         }
         else if((this.position[0] >= this.maxX) && !this.top){
             this.top = true;
-            this.z_index = -this.z_index;
+            this.z_index = 20-this.z_index;
             this.movement_per_second = -this.movement_per_second;
         }
 
@@ -123,7 +123,8 @@ function read_planet_data(planet_data_json){
         let surface_gravity = planet_data.gravity;
         let composition = planet_data.composition;
         let moons = planet_data.number_of_moons;
-        let z_index = -(10-i);
+        //sun z-index is 10, planets behind sun are 11-20, planets in front of sun are 0-9
+        let z_index = (20-i);
         planets.push(new planet(name, origin, maxX, maxY, start, mass, radius, semi_major_axis, perihelion, aphelion, orbital_period, rotation_period, axial_tilt, temperature, surface_gravity, composition, moons, z_index));
     }
     return planets;
