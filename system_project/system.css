@@ -85,3 +85,9 @@ model-viewer{
 .ar-button{
     display:none;
 }
+#sun{
+    position:absolute;
+    left: 50vw;
+    bottom:-300px;
+    z-index: 0;
+}
