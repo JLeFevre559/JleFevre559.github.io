@@ -88,7 +88,7 @@ model-viewer{
 }
 .planet[id="Sun"]{
     position:absolute;
-    left: 50vw;
-    bottom:-300px;
+    left: calc(50vw-400px);
+    bottom:-350px;
     z-index: 0;
 }
