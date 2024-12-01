@@ -124,7 +124,7 @@ function read_planet_data(planet_data_json){
         let composition = planet_data.composition;
         let moons = planet_data.number_of_moons;
         //sun z-index is 10, planets behind sun are 11-20, planets in front of sun are 0-9
-        let z_index = (20-i);
+        let z_index = i;
         planets.push(new planet(name, origin, maxX, maxY, start, mass, radius, semi_major_axis, perihelion, aphelion, orbital_period, rotation_period, axial_tilt, temperature, surface_gravity, composition, moons, z_index));
     }
     return planets;
