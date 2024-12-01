@@ -24,11 +24,21 @@ class planet{
         // Set so that 1 second = 1 hour (planets will move 1 hour per second)
         // Negative value means the planet is moving right to left, positive means left to right
         this.movement_per_second = -((this.maxX*2)/(this.orbital_period/2));
+        
+        // This line sets the scale of the planet on a logarithmic scale so that earth is original sized, and jupiter is 3x larger, currently ~2.2th root
+        this.scale = (radius/6371)**0.4545
+
+        this.planet_height = 100*this.scale;
+        this.planet_width = 100*this.scale;
+
+        // find planet offset to center the planet in its correct position on the ellipse
+        this.offsetX = 1/2*this.planet_width;
+        this.offsetY = 1/2*this.planet_height;
     }
 
     get real_position(){
-        let realPositionX = this.origin[0] + this.position[0];
-        let realPositionY = this.origin[1] - this.position[1];
+        let realPositionX = this.origin[0] + this.position[0]-this.offsetX;
+        let realPositionY = this.origin[1] - this.position[1]-this.offsetY;
         return [realPositionX, realPositionY];
     }
 
@@ -137,17 +147,11 @@ function add_planets_to_html(planets){
         else if(planet.name == 'Uranus'){
             radius += 25000;
         }
-        
-        // This line sets the scale of the planet on a logarithmic scale so that earth is original sized, and jupiter is 3x larger, currently ~2.2th root
-        let planet_scale = (radius/6371)**0.4545
 
-        let planet_height = 100*planet_scale;
-        let planet_width = 100*planet_scale;
+        let planet_height = planet.planet_height;
+        let planet_width = planet.planet_width;
+      
 
-
-        // find planet offset to center the planet in its correct position on the ellipse
-        let offsetX = 1/2*planet_width;
-        let offsetY = 1/2*planet_height;
         let planet_html = '<div class="planet" id="' + planet.name + '" style="position:absolute; left:' + (real_position[0]-offsetX) + 'px; top:' + (real_position[1]-offsetY) +'px;">';
                 planet_html += '<div class="">';
                     // planet_html += '<canvas id="canvas" width="' + planet.maxX + '" height="' + planet.maxY + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] + 'px;"></canvas>';
@@ -204,20 +208,16 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
                     let planet = document.getElementById(planets[i].name);
                     let real_position = planets[i].real_position;
                     // Transform the planet to its new position
-                    let movementX = planet.style.left-real_position[0];
-                    console.log('movementX:', movementX);
-                    let movementY = planet.style.top-real_position[1];
-                    console.log('movementY:', movementY);
-                    planet.style.left = movementX + 'px';
-                    planet.style.top = movementY + 'px';
+                    planet.style.left = (real_position[0]-offsetX) + 'px';
+                    planet.style.top = (real_position[1]-offsetY) + 'px';
 
                 }
                 last_time = current_time;
                 requestAnimationFrame(update);
             }
-            update();
             sleep(5000).then(() => {
                 console.log('sleep done');
+                update();
             });
         });
     });
