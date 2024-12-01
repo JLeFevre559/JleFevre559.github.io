@@ -213,6 +213,14 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
                     planet.style.left = (real_position[0]) + 'px';
                     planet.style.top = (real_position[1]) + 'px';
                     planet.style.zIndex = planets[i].z_index;
+
+                    let cards = document.getElementsByClassName('card');
+                    for(let j = 0; j < cards.length; j++){
+                        cards[j].style.zIndex = 100;
+                        cards[j].style.top = '50%';
+                        cards[j].style.left = '50%';
+                    
+                    }
                 }
                 last_time = current_time;
                 requestAnimationFrame(update);
