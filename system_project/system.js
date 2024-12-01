@@ -211,7 +211,7 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
                     // Transform the planet to its new position
                     planet.style.left = (real_position[0]) + 'px';
                     planet.style.top = (real_position[1]) + 'px';
-
+                    planet.style.zIndex = planets[i].z_index;
                 }
                 last_time = current_time;
                 requestAnimationFrame(update);
