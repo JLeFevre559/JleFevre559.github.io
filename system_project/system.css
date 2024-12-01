@@ -85,7 +85,7 @@ model-viewer{
 .ar-button{
     display:none;
 }
-#Sun{
+.planet[id="Sun"]{
     position:absolute;
     left: 50vw;
     bottom:-300px;
