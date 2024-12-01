@@ -152,7 +152,7 @@ function add_planets_to_html(planets){
         let planet_width = planet.planet_width;
       
 
-        let planet_html = '<div class="planet" id="' + planet.name + '" style="position:absolute; left:' + (real_position[0]-offsetX) + 'px; top:' + (real_position[1]-offsetY) +'px;">';
+        let planet_html = '<div class="planet" id="' + planet.name + '" style="position:absolute; left:' + (real_position[0]) + 'px; top:' + (real_position[1]) +'px;">';
                 planet_html += '<div class="">';
                     // planet_html += '<canvas id="canvas" width="' + planet.maxX + '" height="' + planet.maxY + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] + 'px;"></canvas>';
                     planet_html += '<div class="planet_model" style="width:'+ planet_width + 'px; height:' + planet_height +'px;">';
