@@ -25,7 +25,7 @@ body{
 }
 .card{
     display:none;
-    background-color: var(--bs-primary-bg-subtle);
+    background-color: unset;
     /* opacity: 0.9; */
     width:500px;
     height: 400px;
@@ -33,6 +33,7 @@ body{
     position:static;
     right:0;
     bottom:0;
+    color:white;
 }
 .planet_orbit{
     border:2px dashed white;
