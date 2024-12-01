@@ -205,11 +205,11 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
                     let real_position = planets[i].real_position;
                     // Transform the planet to its new position
                     let movementX = planet.style.left-real_position[0];
-                    console.log('movementX:', movement);
+                    console.log('movementX:', movementX);
                     let movementY = planet.style.top-real_position[1];
-                    console.log('movementY:', movement);
-                    planet.style.left = real_position[0] + 'px';
-                    planet.style.top = real_position[1] + 'px';
+                    console.log('movementY:', movementY);
+                    planet.style.left = movmentX + 'px';
+                    planet.style.top = movementY + 'px';
 
                 }
                 last_time = current_time;
