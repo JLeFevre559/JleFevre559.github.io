@@ -139,7 +139,7 @@ function add_planets_to_html(planets){
         let real_position = planet.real_position;
         
         // Set rotation period in degrees per second, rotation period is in hours with a scale of 1 hour/second
-        let rotation_period = (1/planet.rotation_period)*360;
+        let rotation_period = (1/planet.rotation_period)*360*1000;
         
         let radius = planet.radius;
         //include rings for saturn and uranus to properly scale the planet
