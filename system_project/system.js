@@ -198,7 +198,7 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
             return new Promise(resolve => setTimeout(resolve, ms));
         }
         console.log('sleeping');
-        sleep(10000).then(() => {
+        sleep(1000).then(() => {
             console.log('sleep done');
             let last_time = new Date();
             function update(){
