@@ -153,7 +153,7 @@ function add_planets_to_html(planets){
                     // planet_html += '<canvas id="canvas" width="' + planet.maxX + '" height="' + planet.maxY + '" style="position:absolute; left:' + real_position[0] + 'px; top:' + real_position[1] + 'px;"></canvas>';
                     planet_html += '<div class="planet_model" style="width:'+ planet_width + 'px; height:' + planet_height +'px;">';
                         // planet_html += '<img src="https://t4.ftcdn.net/jpg/10/18/11/31/360_F_1018113113_Ce9kjo5sLSpeQE4OqI3g2Khc9gp6ZzJ6.jpg"' + planet.name + '.png" alt="' + planet.name + '">';
-                        planet_html += '<div class="planet_placeholder" style="position: absolute; width:10px; height:10px;"></div>';
+                        // planet_html += '<div class="planet_placeholder" style="position: absolute; width:10px; height:10px;"></div>';
                         planet_html += '<model-viewer alt="' + planet.name + '" src="assets/3d/'+ planet.name +'.glb" ar environment-image="assets/3d/moon_1k.hdr" poster="" shadow-intensity="1" touch-action="pan-y" disable-pan auto-rotate rotation-per-second='+ rotation_period +'deg disable-tap style="transform: rotate('+ planet.axial_tilt+ 'deg);" disable-zoom></model-viewer>';
                         // planet_html += '<div class="planet_orbit" style="width:' + 2*planet.maxX + 'px; height:' + 2*planet.maxY + 'px;"></div>';
                         
@@ -193,7 +193,7 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
             return new Promise(resolve => setTimeout(resolve, ms));
         }
         console.log('sleeping');
-        sleep(1000).then(() => {
+        sleep(10000).then(() => {
             console.log('sleep done');
             let last_time = new Date();
             function update(){
@@ -210,6 +210,9 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
                 requestAnimationFrame(update);
             }
             update();
+            sleep(100).then(() => {
+                console.log('sleep done');
+            });
         });
     });
 
