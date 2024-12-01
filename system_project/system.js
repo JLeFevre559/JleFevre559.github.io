@@ -208,8 +208,8 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
                     let planet = document.getElementById(planets[i].name);
                     let real_position = planets[i].real_position;
                     // Transform the planet to its new position
-                    planet.style.left = (real_position[0]-offsetX) + 'px';
-                    planet.style.top = (real_position[1]-offsetY) + 'px';
+                    planet.style.left = (real_position[0]) + 'px';
+                    planet.style.top = (real_position[1]) + 'px';
 
                 }
                 last_time = current_time;
