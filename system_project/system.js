@@ -204,13 +204,19 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
                     let planet = document.getElementById(planets[i].name);
                     let real_position = planets[i].real_position;
                     // Transform the planet to its new position
-                    planet.style.transform = 'translate(' + real_position[0] + 'px, ' + real_position[1] + 'px)';
+                    let movementX = planet.style.left-real_position[0];
+                    console.log('movementX:', movement);
+                    let movementY = planet.style.top-real_position[1];
+                    console.log('movementY:', movement);
+                    planet.style.left = real_position[0] + 'px';
+                    planet.style.top = real_position[1] + 'px';
+
                 }
                 last_time = current_time;
                 requestAnimationFrame(update);
             }
             update();
-            sleep(100).then(() => {
+            sleep(5000).then(() => {
                 console.log('sleep done');
             });
         });
