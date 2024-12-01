@@ -24,7 +24,8 @@ class planet{
         // Set so that 1 second = 1 hour (planets will move 1 hour per second)
         // Negative value means the planet is moving right to left, positive means left to right
         this.movement_per_second = -((this.maxX*2)/(this.orbital_period/2));
-        
+        //temporarily increase speed REMOVE THIS
+        this.movement_per_second *= 1000;
         // This line sets the scale of the planet on a logarithmic scale so that earth is original sized, and jupiter is 3x larger, currently ~2.2th root
         this.scale = (radius/6371)**0.4545
 
