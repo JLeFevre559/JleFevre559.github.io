@@ -208,7 +208,7 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
                     console.log('movementX:', movementX);
                     let movementY = planet.style.top-real_position[1];
                     console.log('movementY:', movementY);
-                    planet.style.left = movmentX + 'px';
+                    planet.style.left = movementX + 'px';
                     planet.style.top = movementY + 'px';
 
                 }
