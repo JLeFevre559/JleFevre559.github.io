@@ -216,7 +216,7 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
                 last_time = current_time;
                 requestAnimationFrame(update);
             }
-            sleep(5000).then(() => {
+            sleep(50).then(() => {
                 console.log('sleep done');
                 update();
             });
