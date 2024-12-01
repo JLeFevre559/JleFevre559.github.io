@@ -85,7 +85,7 @@ model-viewer{
 .ar-button{
     display:none;
 }
-#sun{
+#Sun{
     position:absolute;
     left: 50vw;
     bottom:-300px;
