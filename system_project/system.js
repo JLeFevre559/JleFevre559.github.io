@@ -217,8 +217,8 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
                     let cards = document.getElementsByClassName('card');
                     for(let j = 0; j < cards.length; j++){
                         cards[j].style.zIndex = 100;
-                        cards[j].style.top = '50%';
-                        cards[j].style.left = '50%';
+                        cards[j].style.bottom = '0px';
+                        cards[j].style.left = '0px';
                     
                     }
                 }
