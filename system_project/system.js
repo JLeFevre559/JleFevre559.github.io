@@ -43,6 +43,28 @@ class planet{
         return [realPositionX, realPositionY];
     }
 
+    get card_offset(){
+        let x_offset = 0;
+        let y_offset = 0;
+        // if x is between -maxX and -1/3*maxX, card is on the right
+        if(this.position[0] > -this.maxX && this.position[0] < -1/3*this.maxX){
+            x_offset = this.planet_width+500;
+        }
+        // if x is between -1/3*maxX and 1/3*maxX, and y is positive, card is on the bottom
+        else if(this.position[0] > -1/3*this.maxX && this.position[0] < 1/3*this.maxX && this.position[1] > 0){
+            y_offset = this.planet_height+400;
+        }
+        // if x is between 1/3*maxX and maxX, card is on the left
+        else if(this.position[0] > 1/3*this.maxX && this.position[0] < this.maxX){
+            x_offset = -this.planet_width-500;
+        }
+        // if x is between -1/3*maxX and 1/3*maxX, and y is negative, card is on the top
+        else if(this.position[0] > -1/3*this.maxX && this.position[0] < 1/3*this.maxX && this.position[1] < 0){
+            y_offset = -this.planet_height-400;
+        }
+        return [x_offset, y_offset];
+    }
+
     // Move the planet by the movement per second times the time passed in seconds
     move(deltaT){
         // Check change conditions
@@ -164,7 +186,7 @@ function add_planets_to_html(planets){
                         // planet_html += '<div class="planet_orbit" style="width:' + 2*planet.maxX + 'px; height:' + 2*planet.maxY + 'px;"></div>';
                         
                     planet_html += '</div>';
-                    planet_html += '<div class="card" planet_info>';
+                    planet_html += '<div class="card id="' + planet.name + '_card" planet_info>';
                         planet_html += '<h1>' + planet.name + '</h1>';
                         planet_html += '<p>Mass: ' + planet.mass + ' kg</p>';
                         planet_html += '<p>Radius: ' + planet.radius + ' km</p>';
@@ -214,13 +236,12 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
                     planet.style.top = (real_position[1]) + 'px';
                     planet.style.zIndex = planets[i].z_index;
 
-                    let cards = document.getElementsByClassName('card');
-                    for(let j = 0; j < cards.length; j++){
-                        cards[j].style.zIndex = 100;
-                        cards[j].style.bottom = '0px';
-                        cards[j].style.left = '0px';
-                    
-                    }
+                    let card = document.getElementById(planets[i].name + '_card');
+                    let card_offset = planets[i].card_offset;
+                    // Transform the card to its new position
+                    card.style.left = (real_position[0] + card_offset[0]) + 'px';
+                    card.style.top = (real_position[1] + card_offset[1]) + 'px';
+                    card.style.zIndex = 100;
                 }
                 last_time = current_time;
                 requestAnimationFrame(update);
