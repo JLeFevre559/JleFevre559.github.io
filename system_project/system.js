@@ -186,7 +186,7 @@ function add_planets_to_html(planets){
                         // planet_html += '<div class="planet_orbit" style="width:' + 2*planet.maxX + 'px; height:' + 2*planet.maxY + 'px;"></div>';
                         
                     planet_html += '</div>';
-                    planet_html += '<div class="card id="' + planet.name + '_card" planet_info>';
+                    planet_html += '<div class="card" id="' + planet.name + '_card" planet_info>';
                         planet_html += '<h1>' + planet.name + '</h1>';
                         planet_html += '<p>Mass: ' + planet.mass + ' kg</p>';
                         planet_html += '<p>Radius: ' + planet.radius + ' km</p>';
