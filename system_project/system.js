@@ -49,7 +49,7 @@ class planet{
         // if x is between -maxX and -1/3*maxX, card is on the right
         if(this.position[0] > -this.maxX && this.position[0] < -1/3*this.maxX){
             x_offset = this.planet_width;
-            y_offset = 0;
+            y_offset = -this.planet_height;
         }
         // if x is between -1/3*maxX and 1/3*maxX, and y is positive, card is on the bottom
         else if(this.position[0] > -1/3*this.maxX && this.position[0] < 1/3*this.maxX && this.position[1] > 0){
@@ -246,8 +246,8 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
                         console.log('Jupiter card offset:', card_offset);
                     }
                     // Transform the card to its new position
-                    // card.style.left = (real_position[0] + card_offset[0]) + 'px';
-                    // card.style.top = (real_position[1] + card_offset[1]) + 'px';
+                    card.style.left = (real_position[0] + card_offset[0]) + 'px';
+                    card.style.top = (real_position[1] + card_offset[1]) + 'px';
                     let cards = document.getElementsByClassName('card');
                     for(let j = 0; j < cards.length; j++){
                         cards[j].style.zIndex = 30;
