@@ -48,19 +48,23 @@ class planet{
         let y_offset = 0;
         // if x is between -maxX and -1/3*maxX, card is on the right
         if(this.position[0] > -this.maxX && this.position[0] < -1/3*this.maxX){
-            x_offset = this.planet_width+500;
+            x_offset = this.planet_width;
+            y_offset = 0;
         }
         // if x is between -1/3*maxX and 1/3*maxX, and y is positive, card is on the bottom
         else if(this.position[0] > -1/3*this.maxX && this.position[0] < 1/3*this.maxX && this.position[1] > 0){
-            y_offset = this.planet_height+400;
+            y_offset = 0;
+            x_offset = 0;
         }
         // if x is between 1/3*maxX and maxX, card is on the left
         else if(this.position[0] > 1/3*this.maxX && this.position[0] < this.maxX){
-            x_offset = -this.planet_width-500;
+            x_offset = -500;
+            y_offset = -this.planet_height;
         }
         // if x is between -1/3*maxX and 1/3*maxX, and y is negative, card is on the top
         else if(this.position[0] > -1/3*this.maxX && this.position[0] < 1/3*this.maxX && this.position[1] < 0){
             y_offset = -this.planet_height-400;
+            x_offset = 0;
         }
         return [x_offset, y_offset];
     }
