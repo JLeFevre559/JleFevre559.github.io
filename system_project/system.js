@@ -242,10 +242,16 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
 
                     let card = document.getElementById(planets[i].name + '_card');
                     let card_offset = planets[i].card_offset;
+                    if(planet.id == 'Jupiter'){
+                        console.log('Jupiter card offset:', card_offset);
+                    }
                     // Transform the card to its new position
-                    card.style.left = (real_position[0] + card_offset[0]) + 'px';
-                    card.style.top = (real_position[1] + card_offset[1]) + 'px';
-                    card.style.zIndex = 100;
+                    // card.style.left = (real_position[0] + card_offset[0]) + 'px';
+                    // card.style.top = (real_position[1] + card_offset[1]) + 'px';
+                    let cards = document.getElementsByClassName('card');
+                    for(let j = 0; j < cards.length; j++){
+                        cards[j].style.zIndex = 30;
+                    }
                 }
                 last_time = current_time;
                 requestAnimationFrame(update);
