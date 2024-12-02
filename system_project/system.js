@@ -47,22 +47,22 @@ class planet{
         let x_offset = 0;
         let y_offset = 0;
         // if x is between -maxX and -1/3*maxX, card is on the right
-        if(this.position[0] > -this.maxX && this.position[0] < -1/3*this.maxX){
+        if(this.position[0] > -this.maxX && this.position[0] < -1/5*this.maxX){
             x_offset = this.planet_width;
             y_offset = -this.planet_height;
         }
         // if x is between -1/3*maxX and 1/3*maxX, and y is positive, card is on the bottom
-        else if(this.position[0] > -1/3*this.maxX && this.position[0] < 1/3*this.maxX && this.position[1] > 0){
+        else if(this.position[0] > -1/5*this.maxX && this.position[0] < 1/5*this.maxX && this.position[1] > 0){
             y_offset = 0;
             x_offset = 0;
         }
         // if x is between 1/3*maxX and maxX, card is on the left
-        else if(this.position[0] > 1/3*this.maxX && this.position[0] < this.maxX){
+        else if(this.position[0] > 1/5*this.maxX && this.position[0] < this.maxX){
             x_offset = -500;
             y_offset = -this.planet_height;
         }
         // if x is between -1/3*maxX and 1/3*maxX, and y is negative, card is on the top
-        else if(this.position[0] > -1/3*this.maxX && this.position[0] < 1/3*this.maxX && this.position[1] < 0){
+        else if(this.position[0] > -1/5*this.maxX && this.position[0] < 1/5*this.maxX && this.position[1] < 0){
             y_offset = -this.planet_height-400;
             x_offset = 0;
         }
@@ -186,7 +186,7 @@ function add_planets_to_html(planets){
                     planet_html += '<div class="planet_model" style="width:'+ planet_width + 'px; height:' + planet_height +'px;">';
                         // planet_html += '<img src="https://t4.ftcdn.net/jpg/10/18/11/31/360_F_1018113113_Ce9kjo5sLSpeQE4OqI3g2Khc9gp6ZzJ6.jpg"' + planet.name + '.png" alt="' + planet.name + '">';
                         // planet_html += '<div class="planet_placeholder" style="position: absolute; width:10px; height:10px;"></div>';
-                        planet_html += '<model-viewer alt="' + planet.name + '" src="assets/3d/'+ planet.name +'.glb" ar environment-image="assets/3d/moon_1k.hdr" poster="" shadow-intensity="1" touch-action="pan-y" disable-pan auto-rotate rotation-per-second='+ rotation_period +'deg disable-tap style="transform: rotate('+ planet.axial_tilt+ 'deg);" disable-zoom brightness=-0.5></model-viewer>';
+                        planet_html += '<model-viewer id="'+ planet.name + '_model" alt="' + planet.name + '" src="assets/3d/'+ planet.name +'.glb" ar environment-image="assets/3d/moon_1k.hdr" poster="" shadow-intensity="1" touch-action="pan-y" disable-pan auto-rotate rotation-per-second='+ rotation_period +'deg disable-tap style="transform: rotate('+ planet.axial_tilt+ 'deg);" disable-zoom brightness=-0.5></model-viewer>';
                         // planet_html += '<div class="planet_orbit" style="width:' + 2*planet.maxX + 'px; height:' + 2*planet.maxY + 'px;"></div>';
                         
                     planet_html += '</div>';
@@ -238,7 +238,9 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
                     // Transform the planet to its new position
                     planet.style.left = (real_position[0]) + 'px';
                     planet.style.top = (real_position[1]) + 'px';
-                    planet.style.zIndex = planets[i].z_index;
+                    
+                    let model = document.getElementById(planets[i].name + '_model');
+                    model.style.zIndex = planets[i].z_index;
 
                     let card = document.getElementById(planets[i].name + '_card');
                     let card_offset = planets[i].card_offset;
