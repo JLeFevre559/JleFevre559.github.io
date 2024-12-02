@@ -244,9 +244,6 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
 
                     let card = document.getElementById(planets[i].name + '_card');
                     let card_offset = planets[i].card_offset;
-                    if(planet.id == 'Jupiter'){
-                        console.log('Jupiter card offset:', card_offset);
-                    }
                     // Transform the card to its new position
                     card.style.left = (card_offset[0]) + 'px';
                     card.style.top = (card_offset[1]) + 'px';
