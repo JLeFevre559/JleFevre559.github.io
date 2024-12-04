@@ -185,7 +185,7 @@ function add_planets_to_html(planets){
     
     }
 }
-var speed_multiplier = 1000;
+var speed_multiplier = 1;
 fetch('https://jlefevre559.github.io/system_project/system.json')
     .then(response => response.json())
     .then(data => {
