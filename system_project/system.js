@@ -25,7 +25,7 @@ class planet{
         // Negative value means the planet is moving right to left, positive means left to right
         this.movement_per_second = -((this.maxX*2)/(this.orbital_period/2));
         //temporarily increase speed REMOVE THIS
-        this.movement_per_second *= 1000;
+        this.movement_per_second *= speed_multiplier;
         // This line sets the scale of the planet on a logarithmic scale so that earth is original sized, and jupiter is 3x larger, currently ~2.2th root
         this.scale = (radius/6371)**0.4545
 
@@ -139,7 +139,7 @@ function add_planets_to_html(planets){
         let real_position = planet.real_position;
         
         // Set rotation period in degrees per second, rotation period is in hours with a scale of 1 hour/second
-        let rotation_period = (1/planet.rotation_period)*360*1000;
+        let rotation_period = (1/planet.rotation_period)*360*speed_multiplier;
         
         let radius = planet.radius;
         //include rings for saturn and uranus to properly scale the planet
@@ -185,7 +185,7 @@ function add_planets_to_html(planets){
     
     }
 }
-
+var speed_multiplier = 1000;
 fetch('https://jlefevre559.github.io/system_project/system.json')
     .then(response => response.json())
     .then(data => {
