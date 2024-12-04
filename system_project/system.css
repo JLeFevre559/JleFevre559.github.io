@@ -55,6 +55,8 @@ body{
     position:absolute;
     /* opacity: 0.9; */
     z-index: 10;
+    left: calc(50vw-400px);
+    bottom:-350px;
 }
 #planets{
     display:flex;
@@ -89,12 +91,6 @@ model-viewer{
 }
 .ar-button{
     display:none;
-}
-.planet[id="Sun"]{
-    position:absolute;
-    left: calc(50vw-400px);
-    bottom:-350px;
-    z-index: 10;
 }
 .slidecontainer {
     width: 100%; /* Width of the outside container */
