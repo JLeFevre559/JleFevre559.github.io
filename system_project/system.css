@@ -6,6 +6,7 @@
     padding:0;
     box-sizing: border-box;
     will-change: transform;
+    position: relative;
 }
 body{
     display:flex;
@@ -141,6 +142,7 @@ model-viewer{
     overflow-y: scroll;
     color: white;
     max-height: 80vh;
+    z-index: 100;
   }
 
   .footer{
@@ -154,4 +156,5 @@ model-viewer{
     color: white;
     font-size: 1.5rem;
     padding: 10px;
+    z-index: 100;
   }
