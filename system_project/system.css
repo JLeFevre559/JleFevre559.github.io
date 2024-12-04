@@ -139,6 +139,7 @@ model-viewer{
     right: 0;
     overflow-y: scroll;
     color: white;
+    max-height: 80vh;
   }
 
   .footer{
