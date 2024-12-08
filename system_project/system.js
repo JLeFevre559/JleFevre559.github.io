@@ -219,10 +219,12 @@ function change_speed(speed, planets){
         planet.movement_per_second *= speed_multiplier;
         let planet_model = document.getElementById(planet.name + '_model');
         planet_model.setAttribute('rotation-per-second', (1/planet.rotation_period)*360*speed_multiplier);
+        console.log(planet_model);
     }
     );
     let sun_model = document.getElementById('Sun_model');
     sun_model.setAttribute('rotation-per-second', (1/24)*360*speed_multiplier);
+    console.log(sun_model);
 }
 
 fetch('https://jlefevre559.github.io/system_project/system.json')
