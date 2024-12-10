@@ -213,6 +213,32 @@ function add_planets_to_html(planets){
 }
 var speed_multiplier = 1;
 
+var slider = document.getElementById("speed-multiplier");
+var output = document.getElementById("speed-output");
+var planets = [];
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+    output.innerHTML = this.value;
+    change_speed(this.value, planets);
+
+    let speed_info = document.getElementById('speed-info');
+    speed_info.innerHTML = speed_multiplier + 'hour each real second';
+
+    let earth_speed_info = document.getElementById('earth-speed-info');
+    let earth_speed = 365*24/speed_multiplier;
+    if(earth_speed >= 120){
+        earth_speed_info.innerHTML = earth_speed/60 + ' real minutes';
+    }
+    else{
+        earth_speed_info.innerHTML = earth_speed + ' real seconds';
+    }
+    
+    let planet_speed_info = document.getElementById('planet-speed-info');
+    planet_speed_info.innerHTML = 3600*speed_multiplier + 'x as fast as real life!';
+}
+
+
 function change_speed(speed, planets){
     planets.forEach(planet => {
         //remove previous speed multiplier
@@ -235,7 +261,7 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
     .then(data => {
         planet_data_json = JSON.stringify(data);
 
-        var planets = read_planet_data(planet_data_json);
+        planets = read_planet_data(planet_data_json);
         add_planets_to_html(planets);
 
         //sleep function to wait for the planets to be added to the html before moving them
