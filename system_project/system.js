@@ -214,6 +214,7 @@ function add_planets_to_html(planets){
 var speed_multiplier = 1;
 
 var slider = document.getElementById("speed-multiplier");
+console.log(slider);
 var output = document.getElementById("speed-output");
 var planets = [];
 output.innerHTML = slider.value;
