@@ -221,7 +221,16 @@ output.innerHTML = slider.value;
 
 slider.oninput = function() {
     output.innerHTML = this.value;
-    change_speed(this.value, planets);
+    update_speed(this.value);
+}
+
+output.oninput = function() {
+    slider.value = this.value;
+    update_speed(this.value);
+}
+
+function update_speed(speed){
+    change_speed(speed, planets);
 
     let speed_info = document.getElementById('speed-info');
     plural = '';
@@ -233,9 +242,12 @@ slider.oninput = function() {
     let earth_speed_info = document.getElementById('earth-speed-info');
     let earth_speed = 365*24/speed_multiplier;
     if(earth_speed >= 120){
-        earth_speed_info.innerHTML = earth_speed/60 + ' real minutes';
+        earth_speed = earth_speed/60;
+        earth_speed.toFixed(2);
+        earth_speed_info.innerHTML =  + ' real minutes';
     }
     else{
+        earth_speed.toFixed(2);
         earth_speed_info.innerHTML = earth_speed + ' real seconds';
     }
     
