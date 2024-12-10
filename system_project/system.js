@@ -26,8 +26,17 @@ class planet{
         this.movement_per_second = -((this.maxX*2)/(this.orbital_period/2));
         //temporarily increase speed REMOVE THIS
         this.movement_per_second *= speed_multiplier;
+        
+        let rings = 0;
+        // include rings for saturn and uranus to properly scale the planet
+        if(this.name == 'Saturn'){
+            rings = 80000;
+        }
+        else if(this.name == 'Uranus'){
+            rings = 25000;
+        }
         // This line sets the scale of the planet on a logarithmic scale so that earth is original sized, and jupiter is 3x larger, currently ~2.2th root
-        this.scale = (radius/6371)**0.4545
+        this.scale = ((radius+rings)/6371)**0.4545
 
         this.planet_height = 100*this.scale;
         this.planet_width = 100*this.scale;
@@ -166,15 +175,6 @@ function add_planets_to_html(planets){
         
         // Set rotation period in degrees per second, rotation period is in hours with a scale of 1 hour/second
         let rotation_period = (1/planet.rotation_period)*360*speed_multiplier;
-        
-        let radius = planet.radius;
-        //include rings for saturn and uranus to properly scale the planet
-        if(planet.name == 'Saturn'){
-            radius += 80000;
-        }
-        else if(planet.name == 'Uranus'){
-            radius += 25000;
-        }
 
         let planet_height = planet.planet_height;
         let planet_width = planet.planet_width;
@@ -245,7 +245,6 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
         console.log('sleeping');
         sleep(1000).then(() => {
             console.log('sleep done');
-            change_speed(10000, planets);
             let last_time = new Date();
             function update(){
                 let current_time = new Date();
