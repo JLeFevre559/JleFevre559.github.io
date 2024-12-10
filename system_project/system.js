@@ -248,7 +248,7 @@ function update_speed(speed){
     if(earth_speed >= 120){
         earth_speed = earth_speed/60;
         earth_speed.toFixed(2);
-        earth_speed_info.innerHTML =  + ' real minutes';
+        earth_speed_info.innerHTML = earth_speed + ' real minutes';
     }
     else{
         earth_speed.toFixed(2);
