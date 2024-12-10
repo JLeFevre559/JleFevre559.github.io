@@ -251,7 +251,9 @@ function update_speed(speed){
         earth_speed_info.innerHTML = earth_speed + ' real minutes';
     }
     else{
-        earth_speed = Math.round(earth_speed*100)/100;
+        if(earth_speed > 0.01){
+            earth_speed = Math.round(earth_speed*100)/100;
+        }
         earth_speed_info.innerHTML = earth_speed + ' real seconds';
     }
     
