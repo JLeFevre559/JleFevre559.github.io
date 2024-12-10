@@ -214,17 +214,20 @@ function add_planets_to_html(planets){
 var speed_multiplier = 1;
 
 function change_speed(speed, planets){
-    speed_multiplier = speed;
     planets.forEach(planet => {
-        planet.movement_per_second *= speed_multiplier;
+        //remove previous speed multiplier
+        planet.movement_per_second /= speed_multiplier;
+        //add new speed multiplier
+        planet.movement_per_second *= speed;
         let planet_model = document.getElementById(planet.name + '_model');
-        planet_model.setAttribute('rotation-per-second', (1/planet.rotation_period)*360*speed_multiplier);
+        planet_model.setAttribute('rotation-per-second', '(1/planet.rotation_period)*360*speed_multiplier' + 'deg');
         console.log(planet_model);
     }
     );
     let sun_model = document.getElementById('Sun_model');
-    sun_model.setAttribute('rotation-per-second', (1/24)*360*speed_multiplier);
+    sun_model.setAttribute('rotation-per-second', '(1/24)*360*speed_multiplier' + 'deg');
     console.log(sun_model);
+    speed_multiplier = speed;
 }
 
 fetch('https://jlefevre559.github.io/system_project/system.json')
