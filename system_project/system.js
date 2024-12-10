@@ -247,16 +247,16 @@ function update_speed(speed){
     let earth_speed = 365*24/speed_multiplier;
     if(earth_speed >= 120){
         earth_speed = earth_speed/60;
-        earth_speed = earth_speed.toFixed(2);
+        earth_speed = Math.round(earth_speed*100)/100;
         earth_speed_info.innerHTML = earth_speed + ' real minutes';
     }
     else{
-        earth_speed = earth_speed.toFixed(2);
+        earth_speed = Math.round(earth_speed*100)/100;
         earth_speed_info.innerHTML = earth_speed + ' real seconds';
     }
     
     let planet_speed_info = document.getElementById('planet-speed-info');
-    planet_speed_info.innerHTML = ' ' + 3600*speed_multiplier + 'x as fast as real life!';
+    planet_speed_info.innerHTML = ' ' + Math.round(3600*speed_multiplier) + 'x as fast as real life!';
 }
 
 
