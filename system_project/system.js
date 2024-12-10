@@ -246,10 +246,18 @@ slider.oninput = function() {
 
 function change_speed(speed, planets){
     planets.forEach(planet => {
-        //remove previous speed multiplier
-        planet.movement_per_second = ((planet.maxX*2)/(planet.orbital_period/2));
+
+        //reset movement per second
+        let movement_per_second = ((planet.maxX*2)/(planet.orbital_period/2));
         //add new speed multiplier
-        planet.movement_per_second *= speed;
+        movement_per_second *= speed;
+        //move planet in the correct direction
+        if(planet.top){
+            planet.movement_per_second = -movement_per_second;
+        }
+        else{
+            planet.movement_per_second = movement_per_second;
+        }
         let planet_model = document.getElementById(planet.name + '_model');
         planet_model.setAttribute('rotation-per-second', (1/planet.rotation_period)*360*speed + 'deg');
         console.log(planet_model);
