@@ -167,7 +167,7 @@ model-viewer{
     width: 100%;
     display: flex;
     justify-content: right;
-    align-items: center;
+    align-items: flex-start;
     color: white;
     font-size: 1.5rem;
     padding: 10px;
