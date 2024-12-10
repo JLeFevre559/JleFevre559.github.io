@@ -38,6 +38,7 @@ body{
 }
 .card-body{
     color:white;
+    max-width: 50vw;
 }
 .planet_orbit{
     border:2px dashed white;

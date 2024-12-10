@@ -224,7 +224,11 @@ slider.oninput = function() {
     change_speed(this.value, planets);
 
     let speed_info = document.getElementById('speed-info');
-    speed_info.innerHTML = speed_multiplier + 'hour each real second';
+    plural = '';
+    if(speed_multiplier != 1){
+        plural = 's';
+    }
+    speed_info.innerHTML = speed_multiplier + ' hour' + plural + ' each real second';
 
     let earth_speed_info = document.getElementById('earth-speed-info');
     let earth_speed = 365*24/speed_multiplier;
@@ -236,14 +240,14 @@ slider.oninput = function() {
     }
     
     let planet_speed_info = document.getElementById('planet-speed-info');
-    planet_speed_info.innerHTML = 3600*speed_multiplier + 'x as fast as real life!';
+    planet_speed_info.innerHTML = ' ' + 3600*speed_multiplier + 'x as fast as real life!';
 }
 
 
 function change_speed(speed, planets){
     planets.forEach(planet => {
         //remove previous speed multiplier
-        planet.movement_per_second /= speed_multiplier;
+        planet.movement_per_second = ((planet.maxX*2)/(planet.orbital_period/2));
         //add new speed multiplier
         planet.movement_per_second *= speed;
         let planet_model = document.getElementById(planet.name + '_model');
