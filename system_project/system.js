@@ -220,12 +220,12 @@ function change_speed(speed, planets){
         //add new speed multiplier
         planet.movement_per_second *= speed;
         let planet_model = document.getElementById(planet.name + '_model');
-        planet_model.setAttribute('rotation-per-second', '(1/planet.rotation_period)*360*speed_multiplier' + 'deg');
+        planet_model.setAttribute('rotation-per-second', (1/planet.rotation_period)*360*speed + 'deg');
         console.log(planet_model);
     }
     );
     let sun_model = document.getElementById('Sun_model');
-    sun_model.setAttribute('rotation-per-second', '(1/24)*360*speed_multiplier' + 'deg');
+    sun_model.setAttribute('rotation-per-second', (1/24)*360*speed + 'deg');
     sum_model.resetTurntableRotation(200);
     console.log(sun_model);
     speed_multiplier = speed;
