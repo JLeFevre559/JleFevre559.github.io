@@ -30,7 +30,7 @@ body{
     /* opacity: 0.9; */
     width:500px;
     height: 400px;
-    overflow-y: scroll;
+    overflow-y: auto;
     position:relative;
     right:0;
     bottom:0;
@@ -43,7 +43,7 @@ body{
     border-radius: 20px;
     padding: 10px;
     max-height: 80vh;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .planet_orbit{
     border:2px dashed white;
