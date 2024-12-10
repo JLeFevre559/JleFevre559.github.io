@@ -226,6 +226,7 @@ function change_speed(speed, planets){
     );
     let sun_model = document.getElementById('Sun_model');
     sun_model.setAttribute('rotation-per-second', '(1/24)*360*speed_multiplier' + 'deg');
+    sum_model.resetTurntableRotation(200);
     console.log(sun_model);
     speed_multiplier = speed;
 }
