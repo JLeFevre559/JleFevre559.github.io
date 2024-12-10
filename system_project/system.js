@@ -220,14 +220,18 @@ var planets = [];
 output.innerHTML = slider.value;
 
 slider.oninput = function() {
-    output.innerHTML = this.value;
+    output.value = this.value;
     update_speed(this.value);
 }
 
 output.oninput = function() {
-    slider.value = this.value;
-    update_speed(this.value);
-}
+    if (Number(this.value) != NaN){
+        slider.value = this.value;
+        output.ariaPlaceholder = this.value;
+        update_speed(this.value);
+        }
+    }
+    
 
 function update_speed(speed){
     change_speed(speed, planets);
