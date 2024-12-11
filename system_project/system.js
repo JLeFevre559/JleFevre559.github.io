@@ -178,6 +178,22 @@ function add_planets_to_html(planets){
 
         let planet_height = planet.planet_height;
         let planet_width = planet.planet_width;
+
+        let orital_period_output = '';
+        if(planet.orbital_period > 48){
+            orbital_period_output = Math.round((planet.orbital_period/24)*100)/100 + ' days';
+        }
+        else{
+            orbital_period_output = planet.orbital_period + ' hours';
+        }
+
+        let rotation_period_output = '';
+        if(planet.rotation_period > 24){
+            rotation_period_output = Math.round((planet.rotation_period/24)*100)/100 + ' days';
+        }
+        else{
+            rotation_period_output = planet.rotation_period + ' hours';
+        }
       
 
         let planet_html = '<div class="planet" id="' + planet.name + '" style="position:absolute; left:' + (real_position[0]) + 'px; top:' + (real_position[1]) +'px;">';
@@ -197,8 +213,8 @@ function add_planets_to_html(planets){
                         planet_html += '<p>Semi Major Axis: ' + planet.semi_major_axis + ' AU</p>';
                         planet_html += '<p>Perihelion: ' + planet.perihelion + ' AU</p>';
                         planet_html += '<p>Aphelion: ' + planet.aphelion + ' AU</p>';
-                        planet_html += '<p>Orbital Period: ' + planet.orbital_period + '</p>';
-                        planet_html += '<p>Rotation Period: ' + planet.rotation_period + '</p>';
+                        planet_html += '<p>Orbital Period: ' + orital_period_output + '</p>';
+                        planet_html += '<p>Rotation Period: ' + rotation_period_output + '</p>';
                         planet_html += '<p>Axial Tilt: ' + planet.axial_tilt + ' degrees</p>';
                         planet_html += '<p>Temperature: ' + planet.temperature + ' K</p>';
                         planet_html += '<p>Surface Gravity: ' + planet.surface_gravity + ' m/s^2</p>';
