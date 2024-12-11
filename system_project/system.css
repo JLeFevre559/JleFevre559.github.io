@@ -99,6 +99,11 @@ model-viewer{
         display:block;
     }
 }
+.planet:active{
+    .card{
+        background-color: rgb(0, 0, 0, 0.7);
+    }
+}
 .ar-button{
     display:none;
 }

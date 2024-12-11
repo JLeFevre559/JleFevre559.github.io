@@ -332,8 +332,7 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
                     planet.style.top = (real_position[1]) + 'px';
                     planet.style.zIndex = planets[i].z_index;
                     // check for hovered planet
-                    if(planet == document.querySelector(':hover')){
-                        console.log('hovered');
+                    if(document.querySelector('.planet[id='+ planets[i].name + ']:active') != null){
                         planet.style.zIndex = 30;
                     }
                     
