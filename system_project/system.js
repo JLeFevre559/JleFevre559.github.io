@@ -233,7 +233,6 @@ function add_planets_to_html(planets){
 var speed_multiplier = 1;
 
 var slider = document.getElementById("speed-multiplier");
-console.log(slider);
 var output = document.getElementById("speed-output");
 var planets = [];
 output.innerHTML = slider.value;
@@ -297,14 +296,13 @@ function change_speed(speed, planets){
         }
         let planet_model = document.getElementById(planet.name + '_model');
         planet_model.setAttribute('rotation-per-second', (1/planet.rotation_period)*360*speed + 'deg');
-        console.log(planet_model);
     }
     );
     let sun_model = document.getElementById('Sun_model');
     sun_model.setAttribute('rotation-per-second', (1/24)*360*speed + 'deg');
-    console.log(sun_model);
     speed_multiplier = speed;
 }
+
 
 fetch('https://jlefevre559.github.io/system_project/system.json')
     .then(response => response.json())
@@ -333,6 +331,12 @@ fetch('https://jlefevre559.github.io/system_project/system.json')
                     planet.style.left = (real_position[0]) + 'px';
                     planet.style.top = (real_position[1]) + 'px';
                     planet.style.zIndex = planets[i].z_index;
+                    // check for hovered planet
+                    if(planet == document.querySelector(':hover')){
+                        console.log('hovered');
+                        planet.style.zIndex = 30;
+                    }
+                    
                     
                     let card = document.getElementById(planets[i].name + '_card');
                     let card_offset = planets[i].card_offset;
