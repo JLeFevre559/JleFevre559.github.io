@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Print &amp; Download Test Bench</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --paper:#EEF0EC;
+    --card:#FBFCFA;
+    --ink:#17181A;
+    --ink-2:#565A5E;
+    --ink-3:#8A8F90;
+    --line:#D4D8D1;
+    --reg:#E5352B;      /* registration red, the one signal color */
+    --ok:#217A46;
+    --miss:#B21F2D;
+    --shadow:0 1px 0 rgba(23,24,26,.04), 0 12px 30px -18px rgba(23,24,26,.30);
+    --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+    --disp:"Space Grotesk", system-ui, -apple-system, sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:var(--disp);
+    background:var(--paper);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.45;
+  }
+
+  /* faint grid, like a plotter bed */
+  .app{
+    min-height:100vh;
+    background-image:
+      linear-gradient(rgba(23,24,26,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(23,24,26,.035) 1px, transparent 1px);
+    background-size:26px 26px;
+    background-position:-1px -1px;
+    padding:clamp(18px,4vw,52px);
+  }
+  .wrap{max-width:1040px;margin:0 auto}
+
+  /* ---- header ---- */
+  .head{
+    display:flex;align-items:flex-start;gap:20px;
+    padding-bottom:22px;margin-bottom:26px;
+    border-bottom:1.5px solid var(--ink);
+  }
+  .reticle{flex:0 0 auto;margin-top:4px}
+  .reticle svg{display:block}
+  .head-copy h1{
+    font-size:clamp(22px,3.4vw,32px);
+    font-weight:600;letter-spacing:-.02em;margin:0;
+  }
+  .head-copy p{
+    margin:6px 0 0;color:var(--ink-2);
+    font-family:var(--mono);font-size:12.5px;letter-spacing:.01em;
+    max-width:60ch;
+  }
+
+  /* ---- asset strip ---- */
+  .assets{
+    display:flex;flex-wrap:wrap;align-items:center;gap:12px;
+    margin-bottom:26px;
+  }
+  .asset{
+    display:flex;align-items:center;gap:10px;
+    background:var(--card);border:1px solid var(--line);
+    padding:9px 13px;font-family:var(--mono);font-size:12px;
+  }
+  .asset .name{color:var(--ink)}
+  .asset .dim{color:var(--ink-3)}
+  .asset .flag{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--ink-3);flex:0 0 auto;
+  }
+  .asset[data-state="ok"] .flag{background:var(--ok)}
+  .asset[data-state="ok"] .dim{color:var(--ok)}
+  .asset[data-state="miss"] .flag{background:var(--miss)}
+  .asset[data-state="miss"] .dim{color:var(--miss)}
+  .asset[data-state="warn"] .flag{background:var(--reg)}
+  .asset[data-state="warn"] .dim{color:var(--reg)}
+  .check{
+    margin-left:auto;font-family:var(--mono);font-size:12px;
+    border:1px solid var(--ink);background:transparent;color:var(--ink);
+    padding:9px 15px;cursor:pointer;letter-spacing:.02em;
+  }
+  .check:hover{background:var(--ink);color:var(--paper)}
+
+  /* ---- grid of tests ---- */
+  .grid{
+    display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
+  }
+  .card{
+    position:relative;background:var(--card);
+    border:1px solid var(--line);box-shadow:var(--shadow);
+    padding:26px 24px 20px;
+  }
+  /* crop-mark corners: the signature motif */
+  .tick{position:absolute;width:14px;height:14px;pointer-events:none}
+  .tick::before,.tick::after{content:"";position:absolute;background:var(--ink)}
+  .tick::before{width:14px;height:1.5px}
+  .tick::after{width:1.5px;height:14px}
+  .tick.tl{top:-1px;left:-1px}
+  .tick.tr{top:-1px;right:-1px}
+  .tick.bl{bottom:-1px;left:-1px}
+  .tick.br{bottom:-1px;right:-1px}
+  .tick.tr::before,.tick.tr::after{right:0}
+  .tick.bl::before{bottom:0}.tick.bl::after{bottom:0}
+  .tick.br::before,.tick.br::after{right:0;bottom:0}
+
+  .card-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .idx{
+    font-family:var(--mono);font-weight:600;font-size:12px;
+    color:var(--paper);background:var(--ink);
+    padding:3px 8px;letter-spacing:.06em;
+  }
+  .kind{
+    font-family:var(--mono);font-size:11px;font-weight:500;
+    letter-spacing:.14em;color:var(--reg);
+  }
+  .card-title{
+    font-size:18px;font-weight:600;letter-spacing:-.01em;
+    margin:0 0 16px;
+  }
+  .spec{margin:0 0 20px;display:grid;gap:7px}
+  .spec .row{display:flex;gap:12px;font-family:var(--mono);font-size:12px}
+  .spec .k{color:var(--ink-3);min-width:88px;letter-spacing:.02em}
+  .spec .v{color:var(--ink-2);word-break:break-all}
+
+  .card-foot{
+    display:flex;align-items:center;gap:12px;
+    padding-top:16px;border-top:1px dashed var(--line);
+  }
+  .dot{
+    width:9px;height:9px;border-radius:50%;background:var(--ink-3);
+    flex:0 0 auto;transition:background .2s;
+  }
+  .status{
+    font-family:var(--mono);font-size:11.5px;color:var(--ink-3);
+    letter-spacing:.02em;margin-right:auto;
+  }
+  .card[data-state="busy"] .dot{background:var(--reg);animation:pulse 1s ease-in-out infinite}
+  .card[data-state="busy"] .status{color:var(--reg)}
+  .card[data-state="done"] .dot{background:var(--ok)}
+  .card[data-state="done"] .status{color:var(--ok)}
+  .card[data-state="error"] .dot{background:var(--miss)}
+  .card[data-state="error"] .status{color:var(--miss)}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+  .run{
+    font-family:var(--mono);font-size:12.5px;font-weight:500;
+    border:1.5px solid var(--ink);background:var(--ink);color:var(--paper);
+    padding:9px 17px;cursor:pointer;letter-spacing:.02em;
+    transition:background .15s,color .15s,border-color .15s;
+  }
+  .run:hover:not(:disabled){background:var(--reg);border-color:var(--reg)}
+  .run:disabled{opacity:.45;cursor:not-allowed}
+
+  /* ---- console ---- */
+  .console{margin-top:26px}
+  .console-head{
+    display:flex;align-items:center;justify-content:space-between;
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    color:var(--ink-3);text-transform:uppercase;margin-bottom:8px;
+  }
+  .console-head button{
+    font-family:var(--mono);font-size:11px;letter-spacing:.04em;
+    background:none;border:none;color:var(--ink-3);cursor:pointer;
+    text-transform:none;
+  }
+  .console-head button:hover{color:var(--ink)}
+  .log{
+    background:var(--ink);color:#D8DBD4;border:1px solid var(--ink);
+    font-family:var(--mono);font-size:12px;line-height:1.7;
+    padding:14px 16px;height:180px;overflow:auto;white-space:pre-wrap;
+  }
+  .log .t{color:#6F757A}
+  .log .l-ok{color:#7FD69B}
+  .log .l-err{color:#F58A80}
+  .log .l-warn{color:#F0C24A}
+
+  @media (max-width:720px){
+    .grid{grid-template-columns:1fr}
+    .head{flex-direction:column;gap:14px}
+    .check{margin-left:0}
+    .assets{gap:10px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .card[data-state="busy"] .dot{animation:none}
+  }
+
+  /* =======================================================
+     PRINT: only #print-stage is sent to the printer
+     ======================================================= */
+  #print-stage{display:none}
+  @media print{
+    .app{display:none !important}
+    #print-stage{display:block}
+    .large-page{
+      width:11in;height:8.5in;
+      display:flex;align-items:center;justify-content:center;
+      overflow:hidden;page-break-after:avoid;
+    }
+    .large-img{max-width:100%;max-height:100%;object-fit:contain}
+    .doc-page{
+      width:8.5in;height:11in;
+      display:flex;align-items:center;justify-content:center;
+      page-break-after:always;
+    }
+    .doc-page:last-child{page-break-after:auto}
+    .white-img{width:4in;height:4in}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="wrap">
+
+    <header class="head">
+      <span class="reticle" aria-hidden="true">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="13" stroke="#17181A" stroke-width="1.5"/>
+          <circle cx="20" cy="20" r="5.5" stroke="#E5352B" stroke-width="1.5"/>
+          <line x1="20" y1="0" x2="20" y2="12" stroke="#17181A" stroke-width="1.5"/>
+          <line x1="20" y1="28" x2="20" y2="40" stroke="#17181A" stroke-width="1.5"/>
+          <line x1="0" y1="20" x2="12" y2="20" stroke="#17181A" stroke-width="1.5"/>
+          <line x1="28" y1="20" x2="40" y2="20" stroke="#17181A" stroke-width="1.5"/>
+        </svg>
+      </span>
+      <div class="head-copy">
+        <h1>Print &amp; Download Test Bench</h1>
+        <p>Four fixed jobs for exercising a print pipeline and download handling. Check your assets first, then fire any job. Results land in the console below.</p>
+      </div>
+    </header>
+
+    <div class="assets" id="assets">
+      <div class="asset" data-asset="large" data-state="idle">
+        <span class="flag"></span>
+        <span class="name">images/test_large.png</span>
+        <span class="dim">not checked</span>
+      </div>
+      <div class="asset" data-asset="white" data-state="idle">
+        <span class="flag"></span>
+        <span class="name">images/test_white.png</span>
+        <span class="dim">not checked</span>
+      </div>
+      <button class="check" id="check-btn">Check assets</button>
+    </div>
+
+    <div class="grid" id="grid"></div>
+
+    <section class="console">
+      <div class="console-head">
+        <span>Console</span>
+        <button id="clear-log">clear</button>
+      </div>
+      <div class="log" id="log"></div>
+    </section>
+
+  </div>
+</div>
+
+<div id="print-stage" aria-hidden="true"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  var LARGE_SRC = "images/test_large.png";
+  var WHITE_SRC = "images/test_white.png";
+  var PAGES = 100;
+  var EXPECT = {
+    large: {w:7200, h:5400},
+    white: {w:1000, h:1000}
+  };
+
+  var logEl   = document.getElementById("log");
+  var stageEl = document.getElementById("print-stage");
+  var gridEl  = document.getElementById("grid");
+
+  /* ---------- logging ---------- */
+  function stamp(){
+    var d = new Date();
+    function p(n,w){ n = String(n); while(n.length<w) n="0"+n; return n; }
+    return p(d.getHours(),2)+":"+p(d.getMinutes(),2)+":"+p(d.getSeconds(),2)+"."+p(d.getMilliseconds(),3);
+  }
+  function log(msg, kind){
+    var line = document.createElement("div");
+    var cls = kind ? " l-"+kind : "";
+    line.innerHTML = '<span class="t">['+stamp()+']</span> <span class="'+cls.trim()+'">'+escapeHtml(msg)+'</span>';
+    logEl.appendChild(line);
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+  function escapeHtml(s){
+    return String(s).replace(/[&<>"]/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];
+    });
+  }
+  document.getElementById("clear-log").addEventListener("click", function(){ logEl.innerHTML = ""; });
+
+  /* ---------- helpers ---------- */
+  function preload(src){
+    return new Promise(function(resolve, reject){
+      var img = new Image();
+      img.onload  = function(){ resolve(img); };
+      img.onerror = function(){ reject(new Error("could not load "+src)); };
+      img.src = src;
+    });
+  }
+  function setPageStyle(css){
+    var el = document.getElementById("dyn-page-style");
+    if(!el){ el = document.createElement("style"); el.id = "dyn-page-style"; document.head.appendChild(el); }
+    el.textContent = css;
+  }
+  function triggerDownload(url, name, revoke){
+    var a = document.createElement("a");
+    a.href = url; a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    if(revoke){ setTimeout(function(){ URL.revokeObjectURL(url); }, 4000); }
+  }
+  window.addEventListener("afterprint", function(){ stageEl.innerHTML = ""; });
+
+  /* ---------- asset check ---------- */
+  function setAsset(key, state, dimText){
+    var el = document.querySelector('.asset[data-asset="'+key+'"]');
+    if(!el) return;
+    el.setAttribute("data-state", state);
+    el.querySelector(".dim").textContent = dimText;
+  }
+  function checkOne(key, src, expect){
+    setAsset(key, "idle", "checking...");
+    return preload(src).then(function(img){
+      var w = img.naturalWidth, h = img.naturalHeight;
+      var dim = w+" x "+h;
+      if(w === expect.w && h === expect.h){
+        setAsset(key, "ok", dim);
+        log(src+" ok, "+dim, "ok");
+      }else{
+        setAsset(key, "warn", dim+" (want "+expect.w+" x "+expect.h+")");
+        log(src+" size mismatch: found "+dim+", expected "+expect.w+" x "+expect.h, "warn");
+      }
+    }).catch(function(){
+      setAsset(key, "miss", "missing");
+      log(src+" missing or unreadable", "err");
+    });
+  }
+  document.getElementById("check-btn").addEventListener("click", function(){
+    log("checking assets...");
+    checkOne("large", LARGE_SRC, EXPECT.large);
+    checkOne("white", WHITE_SRC, EXPECT.white);
+  });
+
+  /* ---------- per-card state ---------- */
+  function card(id){ return document.querySelector('.card[data-id="'+id+'"]'); }
+  function setCard(id, state, text){
+    var c = card(id); if(!c) return;
+    c.setAttribute("data-state", state);
+    c.querySelector(".status").textContent = text;
+  }
+  function busy(id, on){
+    var c = card(id); if(!c) return;
+    c.querySelector(".run").disabled = !!on;
+  }
+
+  /* ---------- image data for the PDF (fetch first, canvas fallback) ---------- */
+  function imageToDataURL(src){
+    return fetch(src).then(function(res){
+      if(!res.ok) throw new Error("http "+res.status);
+      return res.blob();
+    }).then(function(blob){
+      return new Promise(function(resolve, reject){
+        var r = new FileReader();
+        r.onload = function(){ resolve(r.result); };
+        r.onerror = function(){ reject(new Error("read failed")); };
+        r.readAsDataURL(blob);
+      });
+    }).catch(function(){
+      // fallback: draw through a canvas (works when the image is same-origin over http)
+      return preload(src).then(function(img){
+        var c = document.createElement("canvas");
+        c.width = img.naturalWidth; c.height = img.naturalHeight;
+        c.getContext("2d").drawImage(img, 0, 0);
+        return c.toDataURL("image/png"); // throws on a tainted file:// canvas
+      });
+    });
+  }
+
+  /* ================= TESTS ================= */
+
+  // T1 - print the large image, one page, landscape
+  function testPrintLarge(){
+    setCard("T1","busy","loading image");
+    busy("T1", true);
+    log("T1: loading "+LARGE_SRC+" for print");
+    preload(LARGE_SRC).then(function(img){
+      log("T1: loaded "+img.naturalWidth+" x "+img.naturalHeight+", opening print dialog");
+      stageEl.innerHTML = '<div class="large-page"><img class="large-img" src="'+LARGE_SRC+'" alt=""></div>';
+      setPageStyle("@page{size:letter landscape;margin:0}");
+      setCard("T1","done","print dialog sent");
+      busy("T1", false);
+      window.print();
+    }).catch(function(e){
+      setCard("T1","error", e.message);
+      busy("T1", false);
+      log("T1: "+e.message, "err");
+    });
+  }
+
+  // T2 - download the large image as a file
+  function testDownloadLarge(){
+    setCard("T2","busy","fetching");
+    busy("T2", true);
+    log("T2: downloading "+LARGE_SRC);
+    fetch(LARGE_SRC).then(function(res){
+      if(!res.ok) throw new Error("http "+res.status);
+      return res.blob();
+    }).then(function(blob){
+      triggerDownload(URL.createObjectURL(blob), "test_large.png", true);
+      setCard("T2","done","saved ("+Math.round(blob.size/1024)+" KB)");
+      busy("T2", false);
+      log("T2: saved test_large.png, "+Math.round(blob.size/1024)+" KB", "ok");
+    }).catch(function(){
+      // fallback for file:// where fetch is blocked
+      triggerDownload(LARGE_SRC, "test_large.png", false);
+      setCard("T2","done","download triggered");
+      busy("T2", false);
+      log("T2: fetch blocked, triggered direct download instead", "warn");
+    });
+  }
+
+  // T3 - print a 100 page document, white image centered per page
+  function testPrintDoc(){
+    setCard("T3","busy","building "+PAGES+" pages");
+    busy("T3", true);
+    log("T3: loading "+WHITE_SRC+" and building "+PAGES+" pages");
+    preload(WHITE_SRC).then(function(){
+      var html = "";
+      for(var i=0;i<PAGES;i++){
+        html += '<div class="doc-page"><img class="white-img" src="'+WHITE_SRC+'" alt=""></div>';
+      }
+      stageEl.innerHTML = html;
+      setPageStyle("@page{size:letter portrait;margin:0}");
+      setCard("T3","done", PAGES+"-page print sent");
+      busy("T3", false);
+      log("T3: "+PAGES+" pages built, opening print dialog");
+      window.print();
+    }).catch(function(e){
+      setCard("T3","error", e.message);
+      busy("T3", false);
+      log("T3: "+e.message, "err");
+    });
+  }
+
+  // T4 - download a 100 page PDF, white image centered per page
+  function testDownloadDoc(){
+    if(!window.jspdf || !window.jspdf.jsPDF){
+      setCard("T4","error","jsPDF not loaded");
+      log("T4: jsPDF failed to load (offline?)", "err");
+      return;
+    }
+    setCard("T4","busy","reading image");
+    busy("T4", true);
+    log("T4: preparing "+PAGES+"-page PDF from "+WHITE_SRC);
+    imageToDataURL(WHITE_SRC).then(function(dataUrl){
+      var jsPDF = window.jspdf.jsPDF;
+      var doc = new jsPDF({unit:"in", format:"letter", orientation:"portrait"});
+      doc.setProperties({title:"100 page white-image test"});
+      var pw = 8.5, ph = 11, s = 4;                 // 4in image, centered
+      var x = (pw - s)/2, y = (ph - s)/2;
+      setCard("T4","busy","writing pages");
+      for(var i=0;i<PAGES;i++){
+        if(i>0) doc.addPage();
+        // shared alias "wpx" embeds the image bytes once, keeps the file small
+        doc.addImage(dataUrl, "PNG", x, y, s, s, "wpx", "FAST");
+      }
+      doc.save("test_100page.pdf");
+      setCard("T4","done", PAGES+"-page PDF saved");
+      busy("T4", false);
+      log("T4: saved test_100page.pdf ("+PAGES+" pages)", "ok");
+    }).catch(function(e){
+      setCard("T4","error","image read failed");
+      busy("T4", false);
+      log("T4: could not read image ("+e.message+"). Serve the folder over http, e.g. python3 -m http.server", "err");
+    });
+  }
+
+  /* ---------- render cards ---------- */
+  var TESTS = [
+    {
+      id:"T1", kind:"PRINT", title:"Large image print",
+      spec:[["source",LARGE_SRC],["dimensions","7200 x 5400 px"],["output","1 page, landscape"]],
+      action:"Send print", run:testPrintLarge
+    },
+    {
+      id:"T2", kind:"DOWNLOAD", title:"Large image download",
+      spec:[["source",LARGE_SRC],["dimensions","7200 x 5400 px"],["output","PNG file to disk"]],
+      action:"Download PNG", run:testDownloadLarge
+    },
+    {
+      id:"T3", kind:"PRINT", title:"100-page document print",
+      spec:[["source",WHITE_SRC],["per page","1000 x 1000 white, centered"],["output","100 pages, portrait"]],
+      action:"Send print", run:testPrintDoc
+    },
+    {
+      id:"T4", kind:"DOWNLOAD", title:"100-page document download",
+      spec:[["source",WHITE_SRC],["per page","1000 x 1000 white, centered"],["output","100-page PDF file"]],
+      action:"Download PDF", run:testDownloadDoc
+    }
+  ];
+
+  TESTS.forEach(function(t){
+    var el = document.createElement("article");
+    el.className = "card";
+    el.setAttribute("data-id", t.id);
+    el.setAttribute("data-state", "idle");
+
+    var specRows = t.spec.map(function(r){
+      return '<div class="row"><span class="k">'+escapeHtml(r[0])+'</span><span class="v">'+escapeHtml(r[1])+'</span></div>';
+    }).join("");
+
+    el.innerHTML =
+      '<span class="tick tl"></span><span class="tick tr"></span>'+
+      '<span class="tick bl"></span><span class="tick br"></span>'+
+      '<div class="card-head"><span class="idx">'+t.id+'</span><span class="kind">'+t.kind+'</span></div>'+
+      '<h2 class="card-title">'+escapeHtml(t.title)+'</h2>'+
+      '<div class="spec">'+specRows+'</div>'+
+      '<div class="card-foot">'+
+        '<span class="dot"></span>'+
+        '<span class="status">idle</span>'+
+        '<button class="run" type="button">'+escapeHtml(t.action)+'</button>'+
+      '</div>';
+
+    el.querySelector(".run").addEventListener("click", t.run);
+    gridEl.appendChild(el);
+  });
+
+  log("ready. 4 jobs loaded. run 'check assets' to verify your images.", "ok");
+})();
+</script>
+</body>
+</html>
