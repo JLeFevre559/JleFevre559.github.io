@@ -124,7 +124,7 @@ generateBingo = () => {
     let seed = document.getElementById("bingo-items").value;
     let items = [...bingoItems];
     if (seed) {
-        random = createSeededRNG("my-unique-string-seed");
+        random = createSeededRNG(seed);
         for (let i = 0; i < 25; i++) {
             let randomIndex = getRandomInt(0, items.length);
             document.getElementById(`bingo-item-${i}`).innerText = items[randomIndex];
