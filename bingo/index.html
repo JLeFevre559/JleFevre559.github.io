@@ -4,7 +4,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Bingo</h1>
+    <image src="heroes-posters-v0-bnpddrhdf6je1.jpg" alt="Blizzcon 2026 art" class="bg-image">
+    <h1>Blizzcon 2026 Bingo</h1>
         <table>
         <tr>
             <td class = "bingo-item" id="bingo-item-0" onclick="toggleBingoItem(this)"></td>
@@ -46,11 +47,39 @@
 </body>
 </html>
 <style>
+*{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+body{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    background-color: rgba(66, 55, 55, 0.151);
+}
 td{
     border: 1px solid black;
+    text-align: center;
+}
+.bg-image{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 }
 .selected{
     background-color: red;
+}
+table{
+    background-color: rgba(66, 55, 55, 0.151);
+    background: rgba(128, 128, 128, .9);
+    border: 3px solid black;
+    border-style: inset;
+}
+.data-item{
+    width:100px;
+    height:100px;
 }
 </style>
 <script>
@@ -95,9 +124,11 @@ generateBingo = () => {
     let seed = document.getElementById("bingo-items").value;
     let items = [...bingoItems];
     if (seed) {
+        random = createSeededRNG("my-unique-string-seed");
         for (let i = 0; i < 25; i++) {
             let randomIndex = getRandomInt(0, items.length);
             document.getElementById(`bingo-item-${i}`).innerText = items[randomIndex];
+            document.getElementById(`bingo-item-${i}`).classList.add("data-item");
             items.splice(randomIndex, 1);
         }
     }
@@ -139,7 +170,7 @@ function createSeededRNG(str) {
 
 
 
-const random = createSeededRNG("my-unique-string-seed");
+var random = createSeededRNG("my-unique-string-seed");
 
 /**
  * Generates a seeded random integer.
